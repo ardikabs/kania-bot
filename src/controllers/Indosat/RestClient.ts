@@ -36,7 +36,7 @@ export default class RestClient {
             "msisdn":"6285655164677",
             "message":"Testing"
         };
-        return this.post(this.endpoint+"/imx/sms",body)
+        return this.post("/imx/sms",body)
                     .then((res) => {
                         // success, transId, message 
                         return res.json();
@@ -45,7 +45,7 @@ export default class RestClient {
 
     getCityLBA(accessToken:String) {
         this.headers["Authorization"] = accessToken;
-        return this.get(this.endpoint+"/lba/cities")
+        return this.get("/lba/cities")
                     .then((res)=>{
                         // success, totalResults, results
                         return res.json();
@@ -54,7 +54,7 @@ export default class RestClient {
 
     getLocationLBA(accessToken:String){
         this.headers["Authorization"] = accessToken;
-        return this.get(this.endpoint+"/lba/locations")
+        return this.get("/lba/locations")
                     .then((res)=>{
                         // success, totalResults, results
                         return res.json();
@@ -78,7 +78,7 @@ export default class RestClient {
             }],
 
         };
-        return this.post(this.endpoint+"/lba/campaign",body).then((res)=>{
+        return this.post("/lba/campaign",body).then((res)=>{
             return res.json();
         })
 
