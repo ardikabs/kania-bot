@@ -187,8 +187,6 @@ class Messages{
                 let resultLength = result.length;
                 let limit = 5;
 
-                console.log(JSON.stringify(result) );
-
                 let carouselMsg = new CarouselTemplates("Makan Disini aja");
                 carouselMsg.addColumn(
                     "https://image.ibb.co/eX0PXb/Featured.png",
@@ -209,10 +207,10 @@ class Messages{
 
                 for(let i=0;i<resultLength;i++){
                     try{
+                        console.log(result[i].photos[0].photo_reference);
                         var photoQuery={ 
                             maxwidth: 400,
                             photoreference: result[i].photos[0].photo_reference,          
-                            
                         };
                         
                     }catch(err){
