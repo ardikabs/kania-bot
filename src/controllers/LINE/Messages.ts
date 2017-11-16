@@ -132,7 +132,7 @@ class Messages{
                 msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
                 // this.event.reply(msg);
             }
-            else if(resultLength < limit){
+            else if(resultLength < 5){
                 limit = result.length;
             }
 
@@ -155,40 +155,26 @@ class Messages{
                         if(err)
                             console.log("Error query place photo : ", err);
                         
-                        if(carouselMsg.column.length <5){
-                            carouselMsg.addColumn(
-                                "https://" + res.req.socket._host + "" + res.req.path,
-                                trimString40(result[i].name),
-                                trimString60(result[i].vicinity),
-                                [
-                                    ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z")
-                                ]
-                            );
-                        }
+                        carouselMsg.addColumn(
+                            "https://" + res.req.socket._host + "" + res.req.path,
+                            trimString40(result[i].name),
+                            trimString60(result[i].vicinity),
+                            [
+                                ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z")
+                            ]
+                        );
                         
                         if(carouselMsg.column.length == limit){
                             msg = carouselMsg.build();
-                            console.log(JSON.stringify(msg));
-
-                            this.event.reply("hai");
-                            // this.event.reply("Jancuk")
-                            //     .then((data)=>{
-                            //         console.log(data);
-                            //     })
-                            //     .catch((err)=>{
-                            //         // this.event.reply("Kania bingung, ada yang salah, maaf ya, coba lagi deh");
-                            //     });
+                            this.event.reply(msg);     
                         }
                         else if(carouselMsg.column.length == 0 && i == (resultLength-1)){
-                            console.log("Ngga ketemu apa apa");
-                            
+                            console.log("Ngga ketemu apa apa");                      
                             msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
-
                             // this.event.reply(msg);
                         }
                         else if(carouselMsg.column.length < limit && i==(resultLength-1)){
                             msg = 'Kania bingung, ada yang salah, maaf ya, coba lagi deh';
-
                             // this.event.reply(msg);
                         }
                     });
@@ -197,7 +183,6 @@ class Messages{
                 myFunction(i);
             }
 
-            this.event.reply(carouselMsg.build());
 
         });
     }
