@@ -244,8 +244,7 @@ class Messages{
                         if(carouselMsg.column.length == limit){
                             msg = carouselMsg.build();
                             console.log(JSON.stringify(msg));
-                            this.push("U0ae67530a711944f8a1bed32c3962b7e",msg);
-                            this.event.reply(msg)
+                            this.event.reply("Jancuk")
                                 .then((data)=>{
                                     console.log(data);
                                 })
