@@ -141,13 +141,6 @@ class Messages{
 
                 for(let i=0;i<resultLength;i++){
                     let photoQuery;
-                    if(result[i].photos[0].photo_reference instanceof undefined){
-                        console.log("Ada yg undefined");
-                    }
-                    else if(result[i].photos[0].photo_reference === undefined){
-                        console.log("Ada yg undefined2");
-                    }
-
                     try{
                         photoQuery={ 
                             maxwidth: 400,
