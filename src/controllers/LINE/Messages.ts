@@ -92,7 +92,7 @@ class Messages{
     }   
 
     public locationMsg(){ 
-        let latitude = this.event.message.latitude;
+        let latitude = this.event.message.latitude; 
         let longitude = this.event.message.longitude;
 
         // this.findPlace(latitude,longitude);
@@ -130,7 +130,7 @@ class Messages{
 
             if(resultLength == 0){
                 msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
-                this.event.reply(msg);
+                // this.event.reply(msg);
             }
             else if(resultLength < limit){
                 limit = result.length;
@@ -182,12 +182,12 @@ class Messages{
                             
                             msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
 
-                            this.event.reply(msg);
+                            // this.event.reply(msg);
                         }
                         else if(carouselMsg.column.length < limit && i==(resultLength-1)){
                             msg = 'Kania bingung, ada yang salah, maaf ya, coba lagi deh';
 
-                            this.event.reply(msg);
+                            // this.event.reply(msg);
                         }
                     });
                 }
@@ -195,10 +195,7 @@ class Messages{
                 myFunction(i);
             }
 
-            if(resultLength == 0){
-                msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
-                this.event.reply(msg);  
-            }
+            this.event.reply("MAMOT");
 
         });
     }
