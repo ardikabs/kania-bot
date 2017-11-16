@@ -20,13 +20,10 @@ export default class RestClient {
         
     }
 
-    auth(): void {
+    auth(){
         return fetch(this.endpoint + "/oauth/token", { method: "POST", headers: this.headers, body: "grant_type=client_credentials" })
             .then((res) => {
                 return res.json();
-            })
-            .then((json) => {
-                return json;
             })
     }
 
