@@ -175,8 +175,9 @@ class Messages{
                             this.event.reply(msg);
                         }
                         else if(carouselMsg.column.length < limit && i==(resultLength-1)){
-                            // msg = 'Kania bingung, ada yang salah, maaf ya, coba lagi deh';
-                            msg = carouselMsg.build();                            
+                            // Kondisi ketika tempat tersedia namun tidak semuanya memiliki informasi foto
+                            msg = carouselMsg.build();
+                            console.log("Rusak");                            
                             this.event.reply(msg);
                         }
                     });
