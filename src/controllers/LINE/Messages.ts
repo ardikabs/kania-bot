@@ -234,8 +234,7 @@ class Messages{
                             );
                            
                             if(carouselMsg.column.length == limit){
-                                console.log(JSON.stringify(carouselMsg));
-                                this.event.reply(carouselMsg)
+                                this.event.reply(carouselMsg.build())
                                     .catch((err)=>{
                                         this.event.reply("Kania bingung, ada yang salah, maaf ya, coba lagi deh");
                                     });
