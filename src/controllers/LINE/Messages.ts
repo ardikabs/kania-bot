@@ -206,8 +206,9 @@ class Messages{
                 }
 
                 for(let i=0;i<resultLength;i++){
+                    let photoQuery;
                     try{
-                        var photoQuery={ 
+                        photoQuery={ 
                             maxwidth: 400,
                             photoreference: result[i].photos[0].photo_reference,          
                         };
@@ -233,6 +234,8 @@ class Messages{
                                 ]
                             );
 
+                            console.log("Length data:", carouselMsg.column.length);
+                            
                             if(carouselMsg.column.length == limit){
                                 this.event.reply(carouselMsg)
                                     .catch((err)=>{
@@ -260,9 +263,9 @@ class Messages{
                 if(resultLength == 0){
                     msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
                     this.event.reply(msg);  
-                  }
+                }
 
-        })
+        });
     }
 
 }
