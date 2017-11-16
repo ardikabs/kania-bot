@@ -116,7 +116,7 @@ class Messages{
             let msg;
             let result = res.json.results;
             let resultLength = result.length;
-            let limit = 5;
+            let limit = 10;
 
             let carouselMsg = new CarouselTemplates("Makan Disini aja");
             carouselMsg.addColumn(
@@ -132,7 +132,7 @@ class Messages{
                 msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
                 // this.event.reply(msg);
             }
-            else if(resultLength < 5){
+            else if(resultLength < limit){
                 limit = result.length;
             }
 
@@ -176,12 +176,6 @@ class Messages{
                         this.event.reply(msg);
                     }
                 });
-
-                // let myFunction = function(i){
-                    
-                // }
-
-                // myFunction(i);
             }
 
 
