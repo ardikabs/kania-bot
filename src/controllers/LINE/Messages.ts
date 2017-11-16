@@ -176,10 +176,11 @@ class Messages{
                         }
                         else if(carouselMsg.column.length < limit && i==(resultLength-1)){
                             // Kondisi ketika tempat tersedia namun tidak semuanya memiliki informasi foto
-                            msg = carouselMsg.build();
-                            console.log("Rusak");                            
+                            msg = carouselMsg.build();                            
                             this.event.reply(msg);
                         }
+
+                        console.log("Masuk:i="+i);
                     });
                 }    
             }
