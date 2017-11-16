@@ -232,11 +232,14 @@ class Messages{
                             );
                            
                             if(carouselMsg.column.length == limit){
-                                let msg = carouselMsg.build();
+                                msg = carouselMsg.build();
                                 console.log(JSON.stringify(msg));
                                 this.event.reply(msg)
+                                    .then((data)=>{
+                                        console.log(data);
+                                    })
                                     .catch((err)=>{
-                                        this.event.reply("Kania bingung, ada yang salah, maaf ya, coba lagi deh");
+                                        // this.event.reply("Kania bingung, ada yang salah, maaf ya, coba lagi deh");
                                     });
                             }
                             else if(carouselMsg.column.length == 0 && i == (resultLength-1)){
