@@ -155,14 +155,16 @@ class Messages{
                         if(err)
                             console.log("Error query place photo : ", err);
                         
-                        carouselMsg.addColumn(
-                            "https://" + res.req.socket._host + "" + res.req.path,
-                            trimString40(result[i].name),
-                            trimString60(result[i].vicinity),
-                            [
-                                ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z")
-                            ]
-                        );
+                        if(carouselMsg.column.length <5){
+                            carouselMsg.addColumn(
+                                "https://" + res.req.socket._host + "" + res.req.path,
+                                trimString40(result[i].name),
+                                trimString60(result[i].vicinity),
+                                [
+                                    ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z")
+                                ]
+                            );
+                        }
                         
                         if(carouselMsg.column.length == limit){
                             msg = carouselMsg.build();
@@ -195,7 +197,7 @@ class Messages{
                 myFunction(i);
             }
 
-            this.event.reply("MAMOT");
+            this.event.reply(carouselMsg.build());
 
         });
     }
