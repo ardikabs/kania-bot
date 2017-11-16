@@ -119,65 +119,78 @@ class Messages{
             let limit = 10;
 
             let carouselMsg = new CarouselTemplates("Makan Disini aja");
-            carouselMsg.addColumn(
-                "https://image.ibb.co/eX0PXb/Featured.png",
-                "[\u2605\u2605\u2605] Ayam Goreng Nelongso ",
-                "Jl. Nginden Semolo 43, Surabaya",
-                [
-                    ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@-7.3001232,112.7660767,20z")
-                ]
-            );
+            
+            // Featured Product
+            // carouselMsg.addColumn(
+            //     "https://image.ibb.co/eX0PXb/Featured.png",
+            //     "[\u2605\u2605\u2605] Ayam Goreng Nelongso ",
+            //     "Jl. Nginden Semolo 43, Surabaya",
+            //     [
+            //         ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@-7.3001232,112.7660767,20z")
+            //     ]
+            // );
 
             if(resultLength == 0){
                 msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
-                // this.event.reply(msg);
+                this.event.reply(msg);
             }
-            else if(resultLength < limit){
-                limit = result.length;
-            }
-
-            for(let i=0;i<resultLength;i++){
-                let photoQuery;
-                try{
-                    photoQuery={ 
-                        maxwidth: 400,
-                        photoreference: result[i].photos[0].photo_reference,          
-                    };
-                    
-                }catch(err){
-                    // console.log("Ternyata di sini errornya",err);
-                    continue;
+            else {
+                if(resultLength < limit){
+                    limit = result.length;
                 }
 
-                mapsClient.placesPhoto(photoQuery, (err,res)=>{
-                    if(err)
-                        console.log("Error query place photo : ", err);
-                    
-                    carouselMsg.addColumn(
-                        "https://" + res.req.socket._host + "" + res.req.path,
-                        trimString40(result[i].name),
-                        trimString60(result[i].vicinity),
-                        [
-                            ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z")
-                        ]
-                    );
-                    
-                    if(carouselMsg.column.length === limit){
-                        msg = carouselMsg.build();
-                        this.event.reply(msg);     
+                for(let i=0;i<resultLength;i++){
+                    // let photoQuery;
+                    if(result[i].photos[0].photo_reference instanceof undefined){
                     }
-                    else if(carouselMsg.column.length === 0 && i === (resultLength-1)){
-                        console.log("Ngga ketemu apa apa");                      
-                        msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
-                        this.event.reply(msg);
+                    else{
+                        let photoQuery={ 
+                            maxwidth: 400,
+                            photoreference: result[i].photos[0].photo_reference,          
+                        };
+                        
+                        mapsClient.placesPhoto(photoQuery, (err,res)=>{
+                            if(err)
+                                console.log("Error query place photo : ", err);
+                            
+                            carouselMsg.addColumn(
+                                "https://" + res.req.socket._host + "" + res.req.path,
+                                trimString40(result[i].name),
+                                trimString60(result[i].vicinity),
+                                [
+                                    ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z")
+                                ]
+                            );
+                            
+                            if(carouselMsg.column.length === limit){
+                                msg = carouselMsg.build();
+                                this.event.reply(msg);     
+                            }
+                            else if(carouselMsg.column.length === 0 && i === (resultLength-1)){
+                                console.log("Ngga ketemu apa apa");                      
+                                msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
+                                this.event.reply(msg);
+                            }
+                            else if(carouselMsg.column.length < limit && i==(resultLength-1)){
+                                msg = 'Kania bingung, ada yang salah, maaf ya, coba lagi deh';
+                                this.event.reply(msg);
+                            }
+                        });
+    
                     }
-                    else if(carouselMsg.column.length < limit && i==(resultLength-1)){
-                        msg = 'Kania bingung, ada yang salah, maaf ya, coba lagi deh';
-                        this.event.reply(msg);
-                    }
-                });
+                    // try{
+                    //     photoQuery={ 
+                    //         maxwidth: 400,
+                    //         photoreference: result[i].photos[0].photo_reference,          
+                    //     };
+                        
+                    // }catch(err){
+                    //     // console.log("Ternyata di sini errornya",err);
+                    //     continue;
+                    // }
+    
+                }    
             }
-
 
         });
     }
