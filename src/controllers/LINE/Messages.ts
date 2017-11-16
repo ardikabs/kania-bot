@@ -187,6 +187,8 @@ class Messages{
                 let resultLength = result.length;
                 let limit = 5;
 
+                console.log(JSON.stringify(result) );
+
                 let carouselMsg = new CarouselTemplates("Makan Disini aja");
                 carouselMsg.addColumn(
                     "https://image.ibb.co/eX0PXb/Featured.png",
@@ -206,9 +208,8 @@ class Messages{
                 }
 
                 for(let i=0;i<resultLength;i++){
-                    let photoQuery;                    
                     try{
-                        photoQuery={ 
+                        var photoQuery={ 
                             maxwidth: 400,
                             photoreference: result[i].photos[0].photo_reference,          
                             
@@ -233,26 +234,28 @@ class Messages{
                                     ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z")
                                 ]
                             );
+
+                            if(carouselMsg.column.length == limit){
+                                this.event.reply(carouselMsg)
+                                    .catch((err)=>{
+                                        this.event.reply("Kania bingung, ada yang salah, maaf ya, coba lagi deh");
+                                    });
+                            }
+                            else if(carouselMsg.column.length == 0 && i == (resultLength-1)){
+                                console.log("Ngga ketemu apa apa");
+                                
+                                msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
+    
+                                this.event.reply(msg);
+                            }
+                            else if(carouselMsg.column.length < limit && i==(resultLength-1)){
+                                msg = 'Kania bingung, ada yang salah, maaf ya, coba lagi deh';
+    
+                                this.event.reply(msg);
+                            }
                         });
 
-                        if(carouselMsg.column.length == limit){
-                            this.event.reply(carouselMsg)
-                                .catch((err)=>{
-                                    this.event.reply("Kania bingung, ada yang salah, maaf ya, coba lagi deh");
-                                });
-                        }
-                        else if(carouselMsg.column.length == 0 && i == (resultLength-1)){
-                            console.log("Ngga ketemu apa apa");
-                            
-                            msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
 
-                            this.event.reply(msg);
-                        }
-                        else if(carouselMsg.column.length < limit && i==(resultLength-1)){
-                            msg = 'Kania bingung, ada yang salah, maaf ya, coba lagi deh';
-
-                            this.event.reply(msg);
-                        }
                     }
 
                     myFunction(i);
