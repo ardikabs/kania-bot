@@ -226,12 +226,20 @@ class Messages{
                         
                         carouselMsg.addColumn(
                             "https://" + res.req.socket._host + "" + res.req.path,
-                            trimString40(result[i].name),
-                            trimString60(result[i].vicinity),
+                            "ahasjhdas",
+                            "lkasjdlkajsd",
                             [
                                 ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z")
                             ]
                         );
+                        // carouselMsg.addColumn(
+                        //     "https://" + res.req.socket._host + "" + res.req.path,
+                        //     trimString40(result[i].name),
+                        //     trimString60(result[i].vicinity),
+                        //     [
+                        //         ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z")
+                        //     ]
+                        // );
                         
                         if(carouselMsg.column.length == limit){
                             msg = carouselMsg.build();
