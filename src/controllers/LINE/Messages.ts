@@ -72,6 +72,7 @@ class Messages{
                 ActionBuilder.createPostbackAction("Redeem","null")
             );
             msg = imageCarousel.build(); 
+            console.log(msg);
         }
         else{msg = 'Aku masih belum diajarin ngomong itu sama developerku, kayanya sih dia masih sibuk, tapi kamu bisa coba chat "help" buat command yang aku pahamin :D';}
         
