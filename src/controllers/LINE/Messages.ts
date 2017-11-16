@@ -220,7 +220,6 @@ class Messages{
 
 
                     let myFunction = function(i){
-                        console.log("Masuk cok");
                         mapsClient.placesPhoto(photoQuery, (err,res)=>{
                             if(err)
                                 console.log("Error query place photo : ", err);
@@ -237,6 +236,7 @@ class Messages{
                             console.log("Length data:", carouselMsg.column.length);
                             
                             if(carouselMsg.column.length == limit){
+                                console.log("Masuk sini");
                                 this.event.reply(carouselMsg)
                                     .catch((err)=>{
                                         this.event.reply("Kania bingung, ada yang salah, maaf ya, coba lagi deh");
