@@ -58,9 +58,21 @@ class Messages{
         else if(_userIn == "techdev"){msg= 'Buat kalian yang mau belajar gimana caranya Kania bisa cari tempat makan di sekitar kamu, kamu bisa intip github Kania di sini : https://github.com/dimasmamot/kania, bebas buat dicabangin kok kak';}
         else if(_userIn == "coba"){
             let client = new RestClient();
-            client.auth().then((data)=>{
-                console.log(data);
-            })
+
+            client.auth().then((access)=>{
+            
+                client.sendSMSNotif(access).then((res)=>{
+                    console.log(res.success);
+                });
+
+                client.getCityLBA(access).then((res)=>{
+                    console.log(res.results[0].cityId)
+                });
+
+                client.getLocationLBA(access).then((res)=>{
+                    console.log(res.results[0].locationId);
+                })
+            });
         }
         else if(_userIn == "voucher"){      
             let imageCarousel = new ImageCarouselTemplates("Voucher ini bisa buat makan kamu disekitarmu");
