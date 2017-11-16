@@ -10,6 +10,8 @@ import CarouselTemplates from "../Templates/CarouselTemplates";
 import ImageCarouselTemplates from "../Templates/ImageCarouselTemplates";
 import ActionBuilder from "../Templates/ActionBuilder";
 
+import RestClient from "../Indosat/RestClient";
+
 class Messages{
 
     public token:String;
@@ -73,6 +75,10 @@ class Messages{
                 ActionBuilder.createPostbackAction("Redeem","null")
             );
             msg = imageCarousel.build(); 
+        }
+        else if(_userIn == "coba"){
+            let rest = new RestClient();
+            console.log(rest.auth());
         }
         else{msg = 'Aku masih belum diajarin ngomong itu sama developerku, kayanya sih dia masih sibuk, tapi kamu bisa coba chat "help" buat command yang aku pahamin :D';}
         

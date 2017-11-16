@@ -4,19 +4,16 @@ declare var Promise: any;
 import * as fetch from 'node-fetch';
 import * as FormData from 'form-data';
 
-interface blinkeAPI {
-    consumerKey: String,
-    consumerSecret: String
-}
 
-class RestClient {
+
+export default class RestClient {
 
     private headers: {};
     endpoint: String;
-    constructor(private options: blinkeAPI) {
+    constructor() {
 
         this.headers = {
-            Authorization: "Basic " + btoa(this.options.consumerKey + ":" + this.options.consumerSecret),
+            Authorization: "Basic " + btoa(process.env.CONSUMER_KEY + ":" + process.env.CONSUMER_SECRET),
             'Content-Type': 'application/x-www-form-urlencoded'
         };
 
