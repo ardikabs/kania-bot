@@ -2,11 +2,13 @@
 
 export default class CarouselTemplates{
     
-    constructor(public altText:string, public column:{}[]){
-
+    column:Array<Object>;    
+    constructor(public altText:String){
+        this.column = new Array(Object);
+        
     }
 
-    build():{}{
+    build():Object{
         let message = {
             type: "template",
             altText: this.altText,
@@ -19,7 +21,7 @@ export default class CarouselTemplates{
         return message;
     }
 
-    addColumnCarousel(thumbImg:String, title:String, text:String, actions:Object[]){
+    addColumn(thumbImg:String, title:String, text:String, actions:Array<Object>){
         this.column.push({
             'thumbnailImageUrl':thumbImg,
             'title':title,
