@@ -95,77 +95,7 @@ class Messages{
         let latitude = this.event.message.latitude;
         let longitude = this.event.message.longitude;
 
-        this.findPlace(latitude,longitude);
-        this.event.reply("mamot");
-    }
-
-    public groupMsg(){
-        // Group Input
-        let _groupIn = this.event.message.text;
-    }
-  
-    public imageMsg(){
-        // Message Id
-        let msgId = this.event.message.id;
-
-        // Reply Message for Image Message
-        // this.event.reply("Gambar yang kamu kirim bisa dilihat dimari "+config.HOST_URL+"content/image/"+messageId)
-        //     .then((data)=>{
-        //         console.log("Success :",data);
-        //     })
-        //     .catch((error)=>{
-        //         console.log("Error :",error);
-        //     });
-    }
-
-    public videoMsg(){
-        // Message Id
-        let msgId = this.event.message.id;
-
-        // Reply Message for Video Message
-        // this.event.reply("Video yang kamu kirim bisa dilihat dimari "+config.HOST_URL+"content/video/"+messageId)
-        //     .then((data)=>{
-        //         console.log("Success :",data);
-        //     })
-        //     .catch((error)=>{
-        //         console.log("Error :",error);
-        //     });
-    }
-
-    public audioMsg(){
-        // Message Id
-        let msgId = this.event.message.id;
-
-        // Reply Message for Audio Message
-
-        // this.event.reply("Audio yang kamu kirim bisa diakses dimari "+config.HOST_URL+"content/audio/"+messageId)
-        //     .then((data)=>{
-        //         console.log("Success :",data);
-        //     })
-        //     .catch((error)=>{
-        //         console.log("Error :",error);
-        //     });
-    }
-
-    get (path){
-        return fetch(path,{method : "GET", headers: this.headers});
-    }
-
-    post (path, body){
-        return fetch(path,{method : "POST", headers: this.headers, body: JSON.stringify(body)});
-    }
-
-    push (userId, message){
-        this.bot.push(userId,message)
-            .then((data)=>{
-                console.log("Success :"+data);
-            })
-            .catch((err)=>{
-                console.log("Error :"+err);
-            });
-    }
-
-    findPlace(latitude,longitude){
+        // this.findPlace(latitude,longitude);
         let mapsClient = googleMapClient.createClient({
             key: process.env.GMAPS_API_KEY
         });
@@ -238,7 +168,7 @@ class Messages{
                             msg = carouselMsg.build();
                             console.log(JSON.stringify(msg));
 
-                            this.bot.reply(this.token,msg);
+                            this.event.reply("hai");
                             // this.event.reply("Jancuk")
                             //     .then((data)=>{
                             //         console.log(data);
@@ -271,6 +201,76 @@ class Messages{
             }
 
         });
+    }
+
+    public groupMsg(){
+        // Group Input
+        let _groupIn = this.event.message.text;
+    }
+  
+    public imageMsg(){
+        // Message Id
+        let msgId = this.event.message.id;
+
+        // Reply Message for Image Message
+        // this.event.reply("Gambar yang kamu kirim bisa dilihat dimari "+config.HOST_URL+"content/image/"+messageId)
+        //     .then((data)=>{
+        //         console.log("Success :",data);
+        //     })
+        //     .catch((error)=>{
+        //         console.log("Error :",error);
+        //     });
+    }
+
+    public videoMsg(){
+        // Message Id
+        let msgId = this.event.message.id;
+
+        // Reply Message for Video Message
+        // this.event.reply("Video yang kamu kirim bisa dilihat dimari "+config.HOST_URL+"content/video/"+messageId)
+        //     .then((data)=>{
+        //         console.log("Success :",data);
+        //     })
+        //     .catch((error)=>{
+        //         console.log("Error :",error);
+        //     });
+    }
+
+    public audioMsg(){
+        // Message Id
+        let msgId = this.event.message.id;
+
+        // Reply Message for Audio Message
+
+        // this.event.reply("Audio yang kamu kirim bisa diakses dimari "+config.HOST_URL+"content/audio/"+messageId)
+        //     .then((data)=>{
+        //         console.log("Success :",data);
+        //     })
+        //     .catch((error)=>{
+        //         console.log("Error :",error);
+        //     });
+    }
+
+    get (path){
+        return fetch(path,{method : "GET", headers: this.headers});
+    }
+
+    post (path, body){
+        return fetch(path,{method : "POST", headers: this.headers, body: JSON.stringify(body)});
+    }
+
+    push (userId, message){
+        this.bot.push(userId,message)
+            .then((data)=>{
+                console.log("Success :"+data);
+            })
+            .catch((err)=>{
+                console.log("Error :"+err);
+            });
+    }
+
+    findPlace(latitude,longitude){
+        
     }
 
 }
