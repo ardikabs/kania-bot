@@ -68,7 +68,7 @@ export default class RestClient {
     }
 
     createCampaignLBA(accessToken:String){
-        this.headers["Authorization"] = accessToken;
+        this.headers["Authorization"] = "Bearer "+accessToken;
         let body ={
             "name":"Kesenian November",
             "description":"Promosi Kesenian",
@@ -91,8 +91,8 @@ export default class RestClient {
     }
 
     getCampaignLBA(accessToken:String,campaignId:String){
-        this.headers["Authorization"] = accessToken;
-
+        this.headers["Authorization"] = "Bearer "+accessToken;
+        
         return this.get(this.endpoint+"/lba/campaign/"+campaignId+"/result").then((res)=>{
             return res.json();
         })
