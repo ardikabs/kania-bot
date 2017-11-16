@@ -207,7 +207,7 @@ class Messages{
 
                 for(let i=0;i<resultLength;i++){
                     try{
-                        console.log(result[i].photos[0].photo_reference);
+                        console.log(result[i]);
                         var photoQuery={ 
                             maxwidth: 400,
                             photoreference: result[i].photos[0].photo_reference,          
