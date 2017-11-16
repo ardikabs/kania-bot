@@ -1,7 +1,7 @@
 
 export default class ImageCarouselTemplates{
     
-    column:Array<Object> = new Array(Object);
+    column:Array<Object> = new Array();
     constructor(public altText:String){
         
     }
