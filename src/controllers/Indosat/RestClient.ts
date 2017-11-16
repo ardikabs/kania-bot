@@ -7,13 +7,19 @@ import * as fetch from 'node-fetch';
 
 export default class RestClient {
 
-    private headers: {};
+    private headersAuth: Object;
+    private headers: Object;
+    
     endpoint: String;
     constructor() {
 
-        this.headers = {
+        this.headersAuth = {
             Authorization: "Basic "+ new Buffer(process.env.CONSUMER_KEY + ":" + process.env.CONSUMER_SECRET).toString('base64'),
             'Content-Type': 'application/x-www-form-urlencoded'
+        };
+
+        this.headers = {
+            'Content-Type': 'application/json'
         };
 
         this.endpoint = "https://blinke-stage.apigee.net";
@@ -21,7 +27,7 @@ export default class RestClient {
     }
 
     auth(){
-        return fetch(this.endpoint + "/oauth/token", { method: "POST", headers: this.headers, body: "grant_type=client_credentials" })
+        return fetch(this.endpoint + "/oauth/token", { method: "POST", headers: this.headersAuth, body: "grant_type=client_credentials" })
             .then((res) => {
                 return res.json();
             })
@@ -31,7 +37,7 @@ export default class RestClient {
     }
 
     sendSMSNotif(accessToken:String) {
-        this.headers["Authorization"] = accessToken;
+        this.headers["Authorization"] = "Bearer "+accessToken;
         let body = {
             "msisdn":"6285655164677",
             "message":"Testing"
@@ -44,7 +50,7 @@ export default class RestClient {
     }
 
     getCityLBA(accessToken:String) {
-        this.headers["Authorization"] = accessToken;
+        this.headers["Authorization"] = "Bearer "+accessToken;
         return this.get("/lba/cities")
                     .then((res)=>{
                         // success, totalResults, results
@@ -53,7 +59,7 @@ export default class RestClient {
     }
 
     getLocationLBA(accessToken:String){
-        this.headers["Authorization"] = accessToken;
+        this.headers["Authorization"] = "Bearer "+accessToken;
         return this.get("/lba/locations")
                     .then((res)=>{
                         // success, totalResults, results
