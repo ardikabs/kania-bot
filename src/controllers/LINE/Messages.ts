@@ -205,11 +205,13 @@ class Messages{
                     limit = result.length;
                 }
 
-                let photoQuery;
                 for(let i=0;i<resultLength;i++){
+                    let photoQuery;                    
                     try{
                         photoQuery={ 
-                            maxwidth: 400, photoreference: result[i].photos[0].photo_reference
+                            maxwidth: 400,
+                            photoreference: result[i].photos[0].photo_reference,          
+                            
                         };
                         
                     }catch(err){
