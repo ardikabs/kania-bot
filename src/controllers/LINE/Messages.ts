@@ -244,13 +244,15 @@ class Messages{
                         if(carouselMsg.column.length == limit){
                             msg = carouselMsg.build();
                             console.log(JSON.stringify(msg));
-                            this.event.reply("Jancuk")
-                                .then((data)=>{
-                                    console.log(data);
-                                })
-                                .catch((err)=>{
-                                    // this.event.reply("Kania bingung, ada yang salah, maaf ya, coba lagi deh");
-                                });
+
+                            this.bot.reply(this.token,"jancuk");
+                            // this.event.reply("Jancuk")
+                            //     .then((data)=>{
+                            //         console.log(data);
+                            //     })
+                            //     .catch((err)=>{
+                            //         // this.event.reply("Kania bingung, ada yang salah, maaf ya, coba lagi deh");
+                            //     });
                         }
                         else if(carouselMsg.column.length == 0 && i == (resultLength-1)){
                             console.log("Ngga ketemu apa apa");
