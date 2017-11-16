@@ -169,18 +169,17 @@ class Messages{
                             msg = carouselMsg.build();
                             this.event.reply(msg);     
                         }
+                        else if(carouselMsg.column.length < limit){
+                            // Kondisi ketika tempat tersedia namun tidak semuanya memiliki informasi foto
+                            msg = carouselMsg.build();                            
+                            this.event.reply(msg);
+                        }
                         else if(carouselMsg.column.length === 0 && i === (resultLength-1)){
                             console.log("Ngga ketemu apa apa");                      
                             msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
                             this.event.reply(msg);
                         }
-                        else if(carouselMsg.column.length < limit && i==(resultLength-1)){
-                            // Kondisi ketika tempat tersedia namun tidak semuanya memiliki informasi foto
-                            msg = carouselMsg.build();                            
-                            this.event.reply(msg);
-                        }
 
-                        console.log("Masuk:i="+i+":resultLength:"+resultLength);
                     });
                 }    
             }
