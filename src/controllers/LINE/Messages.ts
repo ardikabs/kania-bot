@@ -1,6 +1,7 @@
 import * as linebot from 'linebot';
-import config from "../../config/main";
 import * as fetch from 'node-fetch';
+import * as googleMapClient from "@google/maps";
+import config from "../../config/main";
 declare var Promise: any;
 
 import ButtonTemplates from "../Templates/ButtonTemplates";
@@ -11,7 +12,7 @@ import ActionBuilder from "../Templates/ActionBuilder";
 
 class Messages{
 
-    public token:string;
+    public token:String;
     public headers: {};
     
     constructor(public event:any,public bot:linebot){
@@ -72,7 +73,6 @@ class Messages{
                 ActionBuilder.createPostbackAction("Redeem","null")
             );
             msg = imageCarousel.build(); 
-            console.log(JSON.stringify(msg));
         }
         else{msg = 'Aku masih belum diajarin ngomong itu sama developerku, kayanya sih dia masih sibuk, tapi kamu bisa coba chat "help" buat command yang aku pahamin :D';}
         
@@ -86,8 +86,13 @@ class Messages{
     }   
 
     public locationMsg(){
-        let addr = this.event.message.address;
-        this.event.reply("Alamat :"+addr)
+        
+        
+        let latitude = this.event.message.latitude;
+        let longitude = this.event.message.longitude;
+
+        this.findPlace(latitude,longitude);
+        this.event.reply("Alamat :")
             .then((data)=>{
                 console.log("Success :",data);
             })
@@ -152,7 +157,6 @@ class Messages{
         return fetch(path,{method : "POST", headers: this.headers, body: JSON.stringify(body)});
     }
 
-
     push (userId, message){
         this.bot.push(userId,message)
             .then((data)=>{
@@ -162,34 +166,121 @@ class Messages{
                 console.log("Error :"+err);
             });
     }
+
+    findPlace(latitude,longitude){
+        let mapsClient = googleMapClient.createClient({
+            key: process.env.GMAPS_API_KEY
+        });
+
+        var placeQuery = {
+            location: [latitude, longitude],
+            radius: 1000,
+            language: "id",
+            keyword: "tempat makan",
+            type: "restaurant"
+          };
+
+        mapsClient.placesNearby(placeQuery, (err,res) =>{
+            if(err)
+                console.log("Error query tempat : ",err);
+                let msg;
+                let result = res.json.results;
+                let resultLength = result.length;
+                let limit = 5;
+
+                let carouselMsg = new CarouselTemplates("Makan Disini aja");
+                carouselMsg.addColumn(
+                    "https://image.ibb.co/eX0PXb/Featured.png",
+                    "[\u2605\u2605\u2605] Ayam Goreng Nelongso ",
+                    "Jl. Nginden Semolo 43, Surabaya",
+                    [
+                        ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@-7.3001232,112.7660767,20z")
+                    ]
+                );
+
+                if(resultLength == 0){
+                    msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
+                    this.event.reply(msg);
+                }
+                else if(resultLength < limit){
+                    limit = result.length;
+                }
+
+                let photoQuery;
+                for(let i=0;i<resultLength;i++){
+                    try{
+                        photoQuery={ 
+                            maxwidth: 400, photoreference: result[i].photos[0].photo_reference
+                        };
+                        
+                    }catch(err){
+                        console.log("Ternyata di sini errornya",err);
+                        continue;
+                    }
+
+
+                    let myFunction = function(i){
+                        mapsClient.placesPhoto(photoQuery, (err,res)=>{
+                            if(err)
+                                console.log("Error query place photo : ", err);
+                            
+                            carouselMsg.addColumn(
+                                "https://" + res.req.socket._host + "" + res.req.path,
+                                trimString40(result[i].name),
+                                trimString60(result[i].vicinity),
+                                [
+                                    ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z")
+                                ]
+                            );
+                        });
+
+                        if(carouselMsg.column.length == limit){
+                            this.event.reply(carouselMsg)
+                                .catch((err)=>{
+                                    this.event.reply("Kania bingung, ada yang salah, maaf ya, coba lagi deh");
+                                });
+                        }
+                        else if(carouselMsg.column.length == 0 && i == (resultLength-1)){
+                            console.log("Ngga ketemu apa apa");
+                            
+                            msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
+
+                            this.event.reply(msg);
+                        }
+                        else if(carouselMsg.column.length < limit && i==(resultLength-1)){
+                            msg = 'Kania bingung, ada yang salah, maaf ya, coba lagi deh';
+
+                            this.event.reply(msg);
+                        }
+                    }
+
+                    myFunction(i);
+                }
+
+                if(resultLength == 0){
+                    msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
+                    this.event.reply(msg);  
+                  }
+
+        })
+    }
+
 }
 
-function validate(val):any[]{
-    let result = [];
-    if(val.includes("@jne")){
-        result.push(true);
-        result.push("@jne");
-        result.push(5);
-        return result;
+function trimString40(stringnya){
+    if(stringnya.length >= 40){
+      return stringnya.substring(0,39);
+    }else{
+      return stringnya;
     }
-    else if(val.includes("@sicepat")){
-        result.push(true);
-        result.push("@sicepat");
-        result.push(9);        
-        return result;    
+  }
+  
+  function trimString60(stringnya){
+    if(stringnya.length >= 60){
+      return stringnya.substring(0,59);
+    }else{
+      return stringnya;
     }
-    else if(val.includes("@wahana")){
-        result.push(true);
-        result.push("@wahana");
-        result.push(8);        
-        return result;    
-    }
-    result.push(false)
-    return result;
-}
-
-function splitInput(val,index):string{
-    return val.substring(index);
-}
+  }
 
 export default Messages;

@@ -2,9 +2,8 @@
 
 export default class CarouselTemplates{
     
-    column:Array<Object>;    
+    column:Array<Object> = new Array();    
     constructor(public altText:String){
-        this.column = new Array(Object);
         
     }
 

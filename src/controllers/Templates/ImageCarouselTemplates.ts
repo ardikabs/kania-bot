@@ -20,18 +20,11 @@ export default class ImageCarouselTemplates{
     }
 
     addColumn(imgUrl:String,action:Object){
-        if(this.column[0] == null){
-            this.column[0] = {
-                'imageUrl':imgUrl,
-                'action':action
-            };
-        }
-        else{
-            this.column.push({
-                'imageUrl':imgUrl,
-                'action':action
-            });
-        }
+        this.column.push({
+            'imageUrl':imgUrl,
+            'action':action
+        });
+
     }
 
 }
