@@ -175,7 +175,8 @@ class Messages{
                             this.event.reply(msg);
                         }
                         else if(carouselMsg.column.length < limit && i==(resultLength-1)){
-                            msg = 'Kania bingung, ada yang salah, maaf ya, coba lagi deh';
+                            // msg = 'Kania bingung, ada yang salah, maaf ya, coba lagi deh';
+                            msg = carouselMsg.build();                            
                             this.event.reply(msg);
                         }
                     });
