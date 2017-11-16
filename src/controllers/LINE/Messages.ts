@@ -91,9 +91,7 @@ class Messages{
             });
     }   
 
-    public locationMsg(){
-        
-        
+    public locationMsg(){ 
         let latitude = this.event.message.latitude;
         let longitude = this.event.message.longitude;
 
@@ -214,7 +212,7 @@ class Messages{
                         };
                         
                     }catch(err){
-                        console.log("Ternyata di sini errornya",err);
+                        // console.log("Ternyata di sini errornya",err);
                         continue;
                     }
 
@@ -234,7 +232,9 @@ class Messages{
                             );
                            
                             if(carouselMsg.column.length == limit){
-                                this.event.reply(carouselMsg.build())
+                                let msg = carouselMsg.build();
+                                console.log(JSON.stringify(msg));
+                                this.event.reply(msg)
                                     .catch((err)=>{
                                         this.event.reply("Kania bingung, ada yang salah, maaf ya, coba lagi deh");
                                     });
