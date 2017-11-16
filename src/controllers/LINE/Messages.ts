@@ -232,11 +232,9 @@ class Messages{
                                     ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z")
                                 ]
                             );
-
-                            console.log("Length data:", carouselMsg.column.length);
-                            
+                           
                             if(carouselMsg.column.length == limit){
-                                console.log("Masuk sini");
+                                console.log(JSON.stringify(carouselMsg));
                                 this.event.reply(carouselMsg)
                                     .catch((err)=>{
                                         this.event.reply("Kania bingung, ada yang salah, maaf ya, coba lagi deh");
