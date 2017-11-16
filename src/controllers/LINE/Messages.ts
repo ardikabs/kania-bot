@@ -56,24 +56,6 @@ class Messages{
         else if(_userIn == "help"){msg= 'Kania masih tahap beta, jadi command-nya cuman ada tiga, "help", "howto", "tentang kania", dan buat yang mau intip source code kania bisa pake command "techdev" :D';}
         else if(_userIn == "tentang kania"){msg = 'Kania bisa bantuin kamu cari tempat makan di sekitar kamu, kania dibantu sama kk google buat cari tempat makan terdekat';}
         else if(_userIn == "techdev"){msg= 'Buat kalian yang mau belajar gimana caranya Kania bisa cari tempat makan di sekitar kamu, kamu bisa intip github Kania di sini : https://github.com/dimasmamot/kania, bebas buat dicabangin kok kak';}
-        else if(_userIn == "coba"){
-            let client = new RestClient();
-
-            client.auth().then((access)=>{
-            
-                client.sendSMSNotif(access).then((res)=>{
-                    console.log(res.success);
-                });
-
-                client.getCityLBA(access).then((res)=>{
-                    console.log(res.results[0].cityId)
-                });
-
-                client.getLocationLBA(access).then((res)=>{
-                    console.log(res.results[0].locationId);
-                })
-            });
-        }
         else if(_userIn == "voucher"){      
             let imageCarousel = new ImageCarouselTemplates("Voucher ini bisa buat makan kamu disekitarmu");
             imageCarousel.addColumn(
@@ -95,9 +77,24 @@ class Messages{
             msg = imageCarousel.build(); 
         }
         else if(_userIn == "coba"){
-            let rest = new RestClient();
-            console.log(rest.auth());
+            let client = new RestClient();
+
+            client.auth().then((access)=>{
+            
+                client.sendSMSNotif(access).then((res)=>{
+                    console.log(res.success);
+                });
+
+                client.getCityLBA(access).then((res)=>{
+                    console.log(res.results[0].cityId)
+                });
+
+                client.getLocationLBA(access).then((res)=>{
+                    console.log(res.results[0].locationId);
+                })
+            });
         }
+        
         else{msg = 'Aku masih belum diajarin ngomong itu sama developerku, kayanya sih dia masih sibuk, tapi kamu bisa coba chat "help" buat command yang aku pahamin :D';}
         
         this.event.reply(msg)
