@@ -96,6 +96,7 @@ class Messages{
         let longitude = this.event.message.longitude;
 
         this.findPlace(latitude,longitude);
+        this.event.reply("mamot");
     }
 
     public groupMsg(){
