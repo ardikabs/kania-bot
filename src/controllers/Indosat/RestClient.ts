@@ -26,7 +26,7 @@ export default class RestClient {
                 return res.json();
             })
             .then((json) => {
-                return json.access_token;
+                return json;
             })
     }
 
