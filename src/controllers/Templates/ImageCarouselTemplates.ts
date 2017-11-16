@@ -1,12 +1,12 @@
 
 export default class ImageCarouselTemplates{
     
-    column:Array<Object>;
-    constructor(public altText:string){
-        this.column = new Array(Object);
+    column:Array<Object> = new Array(Object);
+    constructor(public altText:String){
+        
     }
 
-    build():String{
+    build():Object{
         let message = {
             type: "template",
             altText: this.altText,
@@ -16,15 +16,22 @@ export default class ImageCarouselTemplates{
             }
         }
         
-        return JSON.stringify(message);
+        return message;
     }
 
     addColumn(imgUrl:String,action:Object){
-        this.column.push({
-            'imageUrl':imgUrl,
-            'action':action
-        });
-
+        if(this.column[0] == null){
+            this.column[0] = {
+                'imageUrl':imgUrl,
+                'action':action
+            };
+        }
+        else{
+            this.column.push({
+                'imageUrl':imgUrl,
+                'action':action
+            });
+        }
     }
 
 }

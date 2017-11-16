@@ -55,22 +55,22 @@ class Messages{
         else if(_userIn == "techdev"){msg= 'Buat kalian yang mau belajar gimana caranya Kania bisa cari tempat makan di sekitar kamu, kamu bisa intip github Kania di sini : https://github.com/dimasmamot/kania, bebas buat dicabangin kok kak';}
         else if(_userIn == "voucher"){      
             let imageCarousel = new ImageCarouselTemplates("Voucher ini bisa buat makan kamu disekitarmu");
-            // imageCarousel.addColumn(
-            //     "https://image.ibb.co/cVxXJG/Voucher_1.png",
-            //     ActionBuilder.createPostbackAction("Redeem","null")
-            // );
-            // imageCarousel.addColumn(
-            //     "https://image.ibb.co/jSPq5w/Voucher_2.png",
-            //     ActionBuilder.createPostbackAction("Redeem","null")                
-            // );
-            // imageCarousel.addColumn(
-            //     "https://image.ibb.co/m8UeyG/Voucher_3.png",
-            //     ActionBuilder.createPostbackAction("Redeem","null")
-            // );
-            // imageCarousel.addColumn(
-            //     "https://image.ibb.co/d3DuXb/voucher_4.png",
-            //     ActionBuilder.createPostbackAction("Redeem","null")
-            // );
+            imageCarousel.addColumn(
+                "https://image.ibb.co/cVxXJG/Voucher_1.png",
+                ActionBuilder.createPostbackAction("Redeem","null")
+            );
+            imageCarousel.addColumn(
+                "https://image.ibb.co/jSPq5w/Voucher_2.png",
+                ActionBuilder.createPostbackAction("Redeem","null")                
+            );
+            imageCarousel.addColumn(
+                "https://image.ibb.co/m8UeyG/Voucher_3.png",
+                ActionBuilder.createPostbackAction("Redeem","null")
+            );
+            imageCarousel.addColumn(
+                "https://image.ibb.co/d3DuXb/voucher_4.png",
+                ActionBuilder.createPostbackAction("Redeem","null")
+            );
             msg = imageCarousel.build(); 
             console.log(JSON.stringify(msg));
         }
