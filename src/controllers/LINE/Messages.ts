@@ -140,55 +140,52 @@ class Messages{
                 }
 
                 for(let i=0;i<resultLength;i++){
-                    // let photoQuery;
+                    let photoQuery;
                     if(result[i].photos[0].photo_reference instanceof undefined){
+                        console.log("Ada yg undefined");
                     }
-                    else{
-                        let photoQuery={ 
+                    else if(result[i].photos[0].photo_reference === undefined){
+                        console.log("Ada yg undefined2");
+                    }
+
+                    try{
+                        photoQuery={ 
                             maxwidth: 400,
                             photoreference: result[i].photos[0].photo_reference,          
                         };
                         
-                        mapsClient.placesPhoto(photoQuery, (err,res)=>{
-                            if(err)
-                                console.log("Error query place photo : ", err);
-                            
-                            carouselMsg.addColumn(
-                                "https://" + res.req.socket._host + "" + res.req.path,
-                                trimString40(result[i].name),
-                                trimString60(result[i].vicinity),
-                                [
-                                    ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z")
-                                ]
-                            );
-                            
-                            if(carouselMsg.column.length === limit){
-                                msg = carouselMsg.build();
-                                this.event.reply(msg);     
-                            }
-                            else if(carouselMsg.column.length === 0 && i === (resultLength-1)){
-                                console.log("Ngga ketemu apa apa");                      
-                                msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
-                                this.event.reply(msg);
-                            }
-                            else if(carouselMsg.column.length < limit && i==(resultLength-1)){
-                                msg = 'Kania bingung, ada yang salah, maaf ya, coba lagi deh';
-                                this.event.reply(msg);
-                            }
-                        });
-    
+                    }catch(err){
+                        // console.log("Ternyata di sini errornya",err);
+                        continue;
                     }
-                    // try{
-                    //     photoQuery={ 
-                    //         maxwidth: 400,
-                    //         photoreference: result[i].photos[0].photo_reference,          
-                    //     };
-                        
-                    // }catch(err){
-                    //     // console.log("Ternyata di sini errornya",err);
-                    //     continue;
-                    // }
     
+                    mapsClient.placesPhoto(photoQuery, (err,res)=>{
+                        if(err)
+                            console.log("Error query place photo : ", err);
+                        
+                        carouselMsg.addColumn(
+                            "https://" + res.req.socket._host + "" + res.req.path,
+                            trimString40(result[i].name),
+                            trimString60(result[i].vicinity),
+                            [
+                                ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z")
+                            ]
+                        );
+                        
+                        if(carouselMsg.column.length === limit){
+                            msg = carouselMsg.build();
+                            this.event.reply(msg);     
+                        }
+                        else if(carouselMsg.column.length === 0 && i === (resultLength-1)){
+                            console.log("Ngga ketemu apa apa");                      
+                            msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
+                            this.event.reply(msg);
+                        }
+                        else if(carouselMsg.column.length < limit && i==(resultLength-1)){
+                            msg = 'Kania bingung, ada yang salah, maaf ya, coba lagi deh';
+                            this.event.reply(msg);
+                        }
+                    });
                 }    
             }
 
