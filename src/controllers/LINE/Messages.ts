@@ -207,7 +207,6 @@ class Messages{
 
                 for(let i=0;i<resultLength;i++){
                     try{
-                        console.log(result[i]);
                         var photoQuery={ 
                             maxwidth: 400,
                             photoreference: result[i].photos[0].photo_reference,          
@@ -220,6 +219,7 @@ class Messages{
 
 
                     let myFunction = function(i){
+                        console.log("Masuk cok");
                         mapsClient.placesPhoto(photoQuery, (err,res)=>{
                             if(err)
                                 console.log("Error query place photo : ", err);
@@ -252,8 +252,6 @@ class Messages{
                                 this.event.reply(msg);
                             }
                         });
-
-
                     }
 
                     myFunction(i);
