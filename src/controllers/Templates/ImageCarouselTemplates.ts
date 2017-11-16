@@ -6,7 +6,7 @@ export default class ImageCarouselTemplates{
         this.column = new Array(Object);
     }
 
-    build():Object{
+    build():String{
         let message = {
             type: "template",
             altText: this.altText,
@@ -16,7 +16,7 @@ export default class ImageCarouselTemplates{
             }
         }
         
-        return message;
+        return JSON.stringify(message);
     }
 
     addColumn(imgUrl:String,action:Object){
@@ -24,6 +24,7 @@ export default class ImageCarouselTemplates{
             'imageUrl':imgUrl,
             'action':action
         });
+
     }
 
 }
