@@ -180,7 +180,7 @@ class Messages{
                             this.event.reply(msg);
                         }
 
-                        console.log("Masuk:i="+i);
+                        console.log("Masuk:i="+i+":resultLength:"+resultLength);
                     });
                 }    
             }
