@@ -98,13 +98,6 @@ class Messages{
         let longitude = this.event.message.longitude;
 
         this.findPlace(latitude,longitude);
-        this.event.reply("Alamat :")
-            .then((data)=>{
-                console.log("Success :",data);
-            })
-            .catch((error)=>{
-                console.log("Error :",error);
-            });
     }
 
     public groupMsg(){

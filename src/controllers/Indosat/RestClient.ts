@@ -13,11 +13,12 @@ export default class RestClient {
     constructor() {
 
         this.headers = {
-            Authorization: "Basic " + btoa(process.env.CONSUMER_KEY + ":" + process.env.CONSUMER_SECRET),
+            Authorization: "Basic " + new Buffer(process.env.CONSUMER_KEY + ":" + process.env.CONSUMER_SECRET).toString('base64'),
             'Content-Type': 'application/x-www-form-urlencoded'
         };
 
         this.endpoint = "https://blinke-stage.apigee.net";
+        
     }
 
     auth(): void {
