@@ -37,4 +37,17 @@ export default class ActionBuilder{
             'text':text
         }
     }
+
+    public static createMessageActionForIM(text:String,x:number,y:number,width:number,height:number){
+        return {
+            'type':'message',
+            'text':text,
+            'area':{
+                'x':x,
+                'y':y,
+                'width':width,
+                'height':height
+            }
+        }
+    }
 }

@@ -9,6 +9,8 @@ import ButtonTemplates from "../Templates/ButtonTemplates";
 import ConfirmTemplates from "../Templates/ConfirmTemplates";
 import CarouselTemplates from "../Templates/CarouselTemplates";
 import ImageCarouselTemplates from "../Templates/ImageCarouselTemplates";
+import ImagemapMessage from "../Templates/ImagemapMessage";
+
 import ActionBuilder from "../Templates/ActionBuilder";
 
 import RestClient from "../Indosat/RestClient";
@@ -134,6 +136,23 @@ class Messages{
             msg = "Oke pengaturan baru untuk ["+opt[0].trim()+"] menjadi ["+opt[1].trim()+"] telah diterima.";
 
         }
+
+        else if(_userIn == "@menu"){
+            let imagemapMessage = new ImagemapMessage(
+                "Menunya Kania !!!",
+                "https://sibpens.gravicodev.id/kania/menu",
+                [
+                    ActionBuilder.createMessageActionForIM("Subscribe",0,0,346,260),
+                    ActionBuilder.createMessageActionForIM("Promo",346,0,348,260),
+                    ActionBuilder.createMessageActionForIM("Voucher",695,0,346,260),
+                    ActionBuilder.createMessageActionForIM("Premium",0,260,346,260),
+                    ActionBuilder.createMessageActionForIM("Help",346,260,348,260),
+                    ActionBuilder.createMessageActionForIM("About",695,260,346,260)                    
+                ]
+            );
+            msg = imagemapMessage.build();
+        }
+
         else if(_userIn == "@coba"){
             let client = new RestClient();
 
@@ -152,6 +171,7 @@ class Messages{
                 })
             });
         }
+        
              
         else{msg = 'Aku masih belum diajarin ngomong itu sama developerku, kayanya sih dia masih sibuk, tapi kamu bisa coba chat "@help" buat command yang aku pahamin :D';}
         
