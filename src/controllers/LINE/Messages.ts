@@ -283,11 +283,13 @@ class Messages{
                                             trimString40(result[i].name),
                                             trimString60(result[i].vicinity),
                                             [
-                                                ActionBuilder.createUriAction("Liat Map","https://maps.google.com/maps/place/"+result[i].name+"/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z"),
+                                                ActionBuilder.createUriAction("Liat Map","https://maps.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z"),
                                                 ActionBuilder.createUriAction("Review","https://www.google.com")
                                             ]
                                         );
-                                        
+                                        console.log(result[i].name);
+                                        console.log(result[i].geometry.location.lat);
+                                        console.log(result[i].geometry.location.lng);
                                         if(carouselMsg.column.length === limit){
                                             msg = carouselMsg.build();
                                             this.event.reply(msg);     
