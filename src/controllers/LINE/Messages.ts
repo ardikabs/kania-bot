@@ -187,7 +187,6 @@ class Messages{
     public locationMsg(){ 
         let latitude = this.event.message.latitude; 
         let longitude = this.event.message.longitude;
-        let location = this.event.message.address;
 
         // this.findPlace(latitude,longitude);
         let mapsClient = googleMapClient.createClient({
@@ -201,8 +200,7 @@ class Messages{
                 // Update longitude dan latitude user history
                 this.db.ref("users").child(profile.userId).update({
                     last_latitude:latitude,
-                    last_longitude:longitude,
-                    last_location:location
+                    last_longitude:longitude
                 });
 
                 // Check User Setup (Jarak & Keyword)
