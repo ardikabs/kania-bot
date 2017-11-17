@@ -65,15 +65,21 @@ class Messages{
             ];
         }
         else if(_userIn == "@help"){
-            msg= "Saat ini Kania masih dalam tahap pengembangan, untuk perintah yang dapat digunakan adalah sebagai berikut:\n"+
+            msg= ["Saat ini Kania masih dalam tahap pengembangan, untuk perintah yang dapat digunakan adalah sebagai berikut:\n"+
                 "1. @howto - Perintah untuk mengetahui cara berinteraksi dengan Kania\n"+
                 "2. @promo - Perintah untuk mengetahui promo kuliner yang ada sekitar kalian\n"+
                 "3. @voucher - Perintah untuk mengetahui voucher kuliner yang sedang berlaku di sekitar kalian"+
                 "4. @help - Perintah untuk mendapatkan informasi bantuan pada Kania\n"+
-                "5. @about - Perintah untuk mengetahui tentang Kania\n";
+                "5. @about - Perintah untuk mengetahui tentang Kania\n",
+                Utils.showImagemap()
+            ]
         }
         else if(_userIn == "@about"){
-            msg = "Kania merupakan Chatbot yang akan membantu kamu untuk mengetahui tempat makanan terdekat disekitarmu. Kania menggunakan bantuan Google untuk mencari informasi tersebut dan Kania dibangun menggunakan teknologi Javascript";        
+            msg =[
+                "Kania merupakan Chatbot yang akan membantu kamu untuk mengetahui tempat makanan terdekat disekitarmu.\nKania menggunakan bantuan Google untuk mencari informasi tersebut dan Kania dibangun menggunakan teknologi Javascript",
+                "Status Kania Saat ini:\nVersion: 1.0\nTeknologi: Typescript (2.5.3) & NodeJS (6.11.2)",
+                Utils.showImagemap()
+            ]         
         }
         else if(_userIn == "@techdev"){
             msg= "Buat kalian yang ingi belajar bagaimana Kania bekerja untuk bisa mencari tempat makan di sekitar kamu, kamu bisa melakukan request source code Kania melalui kania@gravicodev.id";
@@ -96,7 +102,7 @@ class Messages{
                 "https://image.ibb.co/d3DuXb/voucher_4.png",
                 ActionBuilder.createPostbackAction("Redeem","null")
             );
-            msg = imageCarousel.build(); 
+            msg = [imageCarousel.build(), Utils.showImagemap()]; 
         }
         else if(_userIn == "@promo"){      
             let imageCarousel = new ImageCarouselTemplates("Voucher ini bisa buat makan kamu disekitarmu");
@@ -116,7 +122,7 @@ class Messages{
                 "https://image.ibb.co/d3DuXb/voucher_4.png",
                 ActionBuilder.createPostbackAction("Redeem","null")
             );
-            msg = imageCarousel.build(); 
+            msg = [imageCarousel.build(), Utils.showImagemap()]; 
         }
         else if(_userIn.includes("set-")){
             let opt = _userIn.substring(4).split(":");      
