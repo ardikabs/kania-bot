@@ -52,11 +52,23 @@ class Messages{
         let replyToken = this.event.replyToken;
         let _userIn = this.event.message.text.toLowerCase();
         
-        if(_userIn == "howto"){msg= "Kalau kamu mau cari tempat makan, langsung aja share location kamu ke aku";}
-        else if(_userIn == "help"){msg= 'Kania masih tahap beta, jadi command-nya cuman ada tiga, "help", "howto", "tentang kania", dan buat yang mau intip source code kania bisa pake command "techdev" :D';}
-        else if(_userIn == "tentang kania"){msg = 'Kania bisa bantuin kamu cari tempat makan di sekitar kamu, kania dibantu sama kk google buat cari tempat makan terdekat';}
-        else if(_userIn == "techdev"){msg= 'Buat kalian yang mau belajar gimana caranya Kania bisa cari tempat makan di sekitar kamu, kamu bisa intip github Kania di sini : https://github.com/dimasmamot/kania, bebas buat dicabangin kok kak';}
-        else if(_userIn == "voucher"){      
+        if(_userIn == "@howto"){
+            // msg= "Kalau kamu mau cari tempat makan, langsung aja share location kamu ke aku";
+            msg = [
+                "Untuk berinteraksi dengan Kania, kalian cukup membagi lokasi kamu ke Kania, dan Kania akan memberitahu tempat makan terdekatmu. Secara default, Kania mencari tempat makan yang berjarak 1KM dari sekitarmu.",
+                "Untuk menggunakan tambahan fitur pencarian tempat makan kalian dapat menggunakan perintah berikut ini:\n1. Set-jarak: 1km - Dengan ketentuan minimal jarak yang dapat dimasukkan adalah 1 kilo meter."
+            ]
+        }
+        else if(_userIn == "@help"){
+            msg= 'Saat ini Kania masih dalam tahap pengembangan, untuk perintah yang dapat digunakan adalah sebagai berikut:\n\1. @howto - Perintah untuk mengetahui cara berinteraksi dengan Kania\n2. @help - Perintah untuk mendapatkan informasi bantuan pada Kania \n3. @about - Perintah untuk mengetahui tentang Kania\n";
+        }
+        else if(_userIn == "@about"){
+            msg = 'Kania merupakan Chatbot yang akan membantu kamu untuk mengetahui tempat makanan terdekat disekitarmu. Kania menggunakan bantuan Google untuk mencari informasi tersebut dan Kania dibangun menggunakan teknologi Javascript";        }
+        }
+        else if(_userIn == "@techdev"){
+            msg= 'Buat kalian yang ingi belajar bagaimana Kania bekerja untuk bisa mencari tempat makan di sekitar kamu, kamu bisa melakukan request source code Kania melalui kania@gravicodev.id';
+        }
+        else if(_userIn == "@voucher"){      
             let imageCarousel = new ImageCarouselTemplates("Voucher ini bisa buat makan kamu disekitarmu");
             imageCarousel.addColumn(
                 "https://image.ibb.co/cVxXJG/Voucher_1.png",
@@ -76,7 +88,7 @@ class Messages{
             );
             msg = imageCarousel.build(); 
         }
-        else if(_userIn == "coba"){
+        else if(_userIn == "@coba"){
             let client = new RestClient();
 
             client.auth().then((access)=>{
@@ -95,7 +107,7 @@ class Messages{
             });
         }
         
-        else{msg = 'Aku masih belum diajarin ngomong itu sama developerku, kayanya sih dia masih sibuk, tapi kamu bisa coba chat "help" buat command yang aku pahamin :D';}
+        else{msg = 'Aku masih belum diajarin ngomong itu sama developerku, kayanya sih dia masih sibuk, tapi kamu bisa coba chat "@help" buat command yang aku pahamin :D';}
         
         this.event.reply(msg)
             .then((data)=>{
