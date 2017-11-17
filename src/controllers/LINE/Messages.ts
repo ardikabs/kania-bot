@@ -85,27 +85,23 @@ class Messages{
             msg= "Buat kalian yang ingi belajar bagaimana Kania bekerja untuk bisa mencari tempat makan di sekitar kamu, kamu bisa melakukan request source code Kania melalui kania@gravicodev.id";
         }
         else if(_userIn == "@voucher"){      
-            let imageCarousel = new ImageCarouselTemplates("Voucher ini bisa buat makan kamu disekitarmu");
+            let imageCarousel = new ImageCarouselTemplates("Voucher ini bisa kamu redeem, buruan!");
             imageCarousel.addColumn(
-                "https://image.ibb.co/cVxXJG/Voucher_1.png",
+                "https://image.ibb.co/ezb3Xm/kode_voucher1.png",
                 ActionBuilder.createPostbackAction("Redeem","null")
             );
             imageCarousel.addColumn(
-                "https://image.ibb.co/jSPq5w/Voucher_2.png",
+                "https://image.ibb.co/g4NMJR/kode_voucher2.png",
                 ActionBuilder.createPostbackAction("Redeem","null")                
             );
             imageCarousel.addColumn(
-                "https://image.ibb.co/m8UeyG/Voucher_3.png",
-                ActionBuilder.createPostbackAction("Redeem","null")
-            );
-            imageCarousel.addColumn(
-                "https://image.ibb.co/d3DuXb/voucher_4.png",
+                "https://image.ibb.co/jg0VCm/kode_voucher3.png",
                 ActionBuilder.createPostbackAction("Redeem","null")
             );
             msg = [imageCarousel.build(), Utils.showImagemap()]; 
         }
         else if(_userIn == "@promo"){      
-            let imageCarousel = new ImageCarouselTemplates("Voucher ini bisa buat makan kamu disekitarmu");
+            let imageCarousel = new ImageCarouselTemplates("Promo sedang berada disekitarmu loh!");
             imageCarousel.addColumn(
                 "https://image.ibb.co/cVxXJG/Voucher_1.png",
                 ActionBuilder.createPostbackAction("Redeem","null")
