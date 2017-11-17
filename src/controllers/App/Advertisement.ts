@@ -34,7 +34,8 @@ class Advertisement{
                 let data:Object = snapshot.val();
                 let indosatValidNumber = ["62815","62816","62855","62856","62857"];
                 let phoneNumber = data["phoneNumber"];
-                if(indosatValidNumber.indexOf(phoneNumber.substring(0,4)) > -1){
+                console.log(indosatValidNumber.indexOf(phoneNumber.substring(0,5)) );
+                if(indosatValidNumber.indexOf(phoneNumber.substring(0,5)) > -1){
                     client.sendSMSNotif(
                         access,phoneNumber,
                         "Hai Pengguna Kania!\n"+
