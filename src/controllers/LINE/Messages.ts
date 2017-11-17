@@ -76,8 +76,8 @@ class Messages{
         }
         else if(_userIn == "@about"){
             msg =[
-                "Kania merupakan Chatbot yang akan membantu kamu untuk mengetahui tempat makanan terdekat disekitarmu.\nKania menggunakan bantuan Google untuk mencari informasi tersebut dan Kania dibangun menggunakan teknologi Javascript",
-                "Status Kania Saat ini:\nVersion: 1.0\nTeknologi: Typescript (2.5.3) & NodeJS (6.11.2)\nDeveloper: ardikabs@gmail.com & dimas.rizky.hp@gmail.com",
+                "Kania merupakan Chatbot yang akan membantu kamu untuk mengetahui tempat makanan terdekat disekitarmu.\nKania menggunakan bantuan Google untuk mencari informasi tersebut.",
+                "Status Kania Saat ini:\nDeveloper Trial Bot\nVersion: 1.0\nTeknologi: Typescript (2.5.3) & NodeJS (6.11.2)\nDeveloper: ardikabs@gmail.com & dimas.rizky.hp@gmail.com",
                 Utils.showImagemap()
             ]         
         }
@@ -120,6 +120,14 @@ class Messages{
             );
             msg = [imageCarousel.build(), Utils.showImagemap()]; 
         }
+        else if(_userIn == "@subscribe"){
+            msg = [
+                "Fitur Subscribe, merupakan fitur yang memungkinkankan kamu untuk mendapatkan promo dan voucher secara otomatis yang dapat kamu atur harian/mingguan/bulanan.\n"+
+                "Jadi kamu pasti dapat informasi terbaru untuk promo dan voucher berdasarkan lokasi terakhir yang kamu kirim.",
+                "Untuk memulai menggunakan fitur Subscribe, kamu hanya perlu mengkonfirmasikan nomor handphone kamu dengan perintah berikut ini:\n"+
+                "Join-subscribe: 0856xxxxxx"
+            ];
+        }
         else if(_userIn.includes("set-")){
             let opt = _userIn.substring(4).split(":");      
             this.event.source.profile()
@@ -137,6 +145,17 @@ class Messages{
                 });
             msg = "Oke pengaturan baru untuk ["+opt[0].trim()+"] menjadi ["+opt[1].trim()+"] telah diterima.";
 
+        }
+
+        else if(_userIn.includes("join-subscribe")){
+            let numSplit = _userIn.trim().split(":")[1].trim();
+
+            if(numSplit[0] == "0"){
+                let phoneNumber = "62"+numSplit.substring(1,numSplit.length);
+                this.event.source.profile().then((profile)=>{
+                    this.db.ref("users").child(profile.userId).update({phoneNumber:phoneNumber});                    
+                });
+            }
         }
 
         else if(_userIn == "@menu"){
