@@ -1,18 +1,37 @@
+import admin from '../../config/admin';
 
 class Follow{
 
+    private db: any;
     constructor(public event:any){
         this.greetingMsg();
+        this.db = admin.database().ref("users");
     }
 
     public greetingMsg(){
         this.event.source.profile()
             .then( (profile)=>{
+
+                this.db.child(profile.userId).once("value",(snapshot)=>{
+                    if(!snapshot.exists()){
+                        let val = {
+                            displayName: profile.displayName,
+                            timestamp: this.db.ServerValue.timestamp,
+                            status: "follow",
+                            status_premium: false,
+                            phoneNumber:"-"
+                        };
+                        this.db.child(profile.userId).set(val,(err)=>{
+                            if(err) {console.log("Error saving new user");}
+                        });
+                    }
+                });
+
                 let greetingMsg = [
                     `Terima kasih ${profile.displayName} telah menambahkan aku menjadi temanmu !`,
-                    "Eksi BOT akan membantumu mengetahui informasi RESI pengiriman barang kamu loh",
-                    "Untuk memulainya, gunakan perintah berikut ini,\nContoh : @{nama-layanan} {no-resi} \n@jne CGK7K02103326517 \n@sicepat 00005366108 \n@wahana ADG66845",
-                    "Gunakan perintah @help untuk mengetahui aku lebih lanjut yah."
+                    "Hai! Aku Kania, aku bisa membantu kamu untuk cari tempat kuliner yang disekitar mu!",
+                    "Untuk cari makan, langsung aja kirim lokasi kamu sekarang.",
+                    "Kalau kamu bingung, kamu bisa gunakan perintah @help untuk mengetahui aku lebih dekat."
                 ] 
                 this.event.reply(greetingMsg)
                     .then((data)=>{
