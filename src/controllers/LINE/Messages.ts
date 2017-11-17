@@ -179,9 +179,9 @@ class Messages{
                     .once("value",(snapshot)=>{
                         var placeQuery = {
                             location: [latitude, longitude],
-                            radius: 1000,
+                            radius: snapshot.child("jarak").val() || 1000,
                             language: "id",
-                            keyword: "tempat makan",
+                            keyword: snapshot.child("keyword").val() || "tempat makan",
                             type: "restaurant"
                           };
                 
@@ -243,10 +243,13 @@ class Messages{
                                         );
                                         
                                         if(carouselMsg.column.length === limit){
+                                            console.log("data masuk"+limit);
                                             msg = carouselMsg.build();
                                             this.event.reply(msg);     
                                         }
                                         else if(carouselMsg.column.length < limit){
+                                            console.log("data masuk"+carouselMsg.column.length);
+                                            
                                             // Kondisi ketika tempat tersedia namun tidak semuanya memiliki informasi foto
                                             msg = carouselMsg.build();                            
                                             this.event.reply(msg);
