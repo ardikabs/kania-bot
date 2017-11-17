@@ -265,7 +265,8 @@ class Messages{
                                         );
                                         
                                         console.log("Carousel Length: "+carouselMsg.column.length);
-                                        console.log("ResultLength-SumFail:"+ (resultLength-sumFail));
+                                        console.log("ResultLength"+ resultLength);
+                                        console.log("SumFail:"+sumFail);
                                         if(carouselMsg.column.length === limit){
                                             msg = carouselMsg.build();
                                             this.event.reply(msg);     
