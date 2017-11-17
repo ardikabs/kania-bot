@@ -132,7 +132,7 @@ class Messages{
                     }
                     this.db.ref("userSetup").child(profile.userId).set(val);
                 });
-            msg = "Oke pengaturan baru untuk ["+opt[0].trim().capitalize()+"] menjadi ["+opt[1].trim()+"] telah diterima.";
+            msg = "Oke pengaturan baru untuk ["+opt[0].trim()+"] menjadi ["+opt[1].trim()+"] telah diterima.";
 
         }
         else if(_userIn == "@coba"){
