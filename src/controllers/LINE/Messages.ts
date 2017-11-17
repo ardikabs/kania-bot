@@ -247,7 +247,7 @@ class Messages{
                                             msg = carouselMsg.build();
                                             this.event.reply(msg);     
                                         }
-                                        else if(carouselMsg.column.length < limit){
+                                        else if(carouselMsg.column.length < limit && i === resultLength-1){
                                             console.log("data masuk"+carouselMsg.column.length);
                                             
                                             // Kondisi ketika tempat tersedia namun tidak semuanya memiliki informasi foto
