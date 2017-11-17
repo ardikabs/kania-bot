@@ -285,7 +285,7 @@ class Messages{
                                             [
                                                 // ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z"),
                                                 // ActionBuilder.createUriAction("Liat Map","https://maps.google.com/maps?&z=20&q="+result[i].geometry.location.lat+"+"+result[i].geometry.location.lng+"&ll="+result[i].geometry.location.lat+"+"+result[i].geometry.location.lng),
-                                                ActionBuilder.createUriAction("Liat Map","https://maps.google.com/maps/search/?api=1&query="+result[i].geometry.location.lat+","+result[i].geometry.location.lng),
+                                                ActionBuilder.createUriAction("Liat Map","https://maps.google.com/maps/search/?api=1&query="+result[i].geometry.location.lat+","+result[i].geometry.location.lng+"&query_place_id="+result[i].place_id),
                                                 ActionBuilder.createUriAction("Review","https://www.google.com")
                                             ]
                                         );
