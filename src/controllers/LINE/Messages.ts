@@ -288,6 +288,8 @@ class Messages{
                                                 ActionBuilder.createUriAction("Review","https://www.google.com")
                                             ]
                                         );
+
+                                        console.log(ActionBuilder.createUriAction("Liat Map 2","https://maps.google.com/maps/search/?api=1"+"&query="+(result[i].name).replace(" ","+")+"&query_place_id="+result[i].place_id))
                                         if(carouselMsg.column.length === limit){
                                             msg = carouselMsg.build();
                                             this.event.reply(msg);     
