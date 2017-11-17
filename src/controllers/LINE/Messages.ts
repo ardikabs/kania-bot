@@ -285,7 +285,7 @@ class Messages{
                                             [
                                                 ActionBuilder.createUriAction("Liat Map","https://maps.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z"),
                                                 // ActionBuilder.createUriAction("Liat Map2","https://www.google.com/maps/search/?api=1"+"&query="+(result[i].name).replace(/\s/g,'')+"&query_place_id="+result[i].place_id),                                                
-                                                ActionBuilder.createUriAction("Liat Map2","https://maps.google.com/maps/search/?api=1&query=PisaKafeMenteng&query_place_id=ChIJj61I_yT0aS4Rf9KRrSAKOyo");
+                                                ActionBuilder.createUriAction("Liat Map2","https://maps.google.com/maps/search/?api=1&query=PisaKafeMenteng&query_place_id=ChIJj61I_yT0aS4Rf9KRrSAKOyo"),
                                                 ActionBuilder.createUriAction("Review","https://www.google.com")
                                             ]
                                         );
