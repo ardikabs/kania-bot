@@ -289,7 +289,6 @@ class Messages{
                                             ]
                                         );
 
-                                        console.log(ActionBuilder.createUriAction("Liat Map 2","https://www.google.com/maps/search/?api=1"+"&query="+(result[i].name).replace(/\s/g,'')+"&query_place_id="+result[i].place_id))
                                         if(carouselMsg.column.length === limit){
                                             msg = carouselMsg.build();
                                             this.event.reply(msg);     
