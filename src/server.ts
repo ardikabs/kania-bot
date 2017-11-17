@@ -8,6 +8,7 @@ import * as cors from 'cors';
 import * as path from 'path';
 import config from './config/main';
 import * as linebot from 'linebot';
+import * as http from "http";
 
 import Messages from './controllers/LINE/Messages';
 import Follow from './controllers/LINE/Follow';
@@ -64,6 +65,7 @@ class Server {
         });
 
         this.app.use('/',router);
+        this.app.use('/reviews',router);
     }
 
     linehandler(){
@@ -93,7 +95,9 @@ class Server {
         });
         
         bot.on('postback', (event)=>{ 
-            
+            let uri = event.postback.data;
+            console.log(uri);
+            // http.get("https://mykania.herokuapp.com"+uri);
         });
     }
 
