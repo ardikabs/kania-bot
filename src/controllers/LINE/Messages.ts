@@ -124,13 +124,12 @@ class Messages{
                     if(opt[0].trim() === "jarak"){
                         let radius = opt[1].trim().split("km")[0].trim();
                         radius = radius * 1000;
-                        val["radius"] = radius;
+                        this.db.ref("userSetup").child(profile.userId).child("jarak").set(radius);                        
                     }
                     else if(opt[0].trim() === "keyword"){
                         let keyword = opt[1].trim();
-                        val["keyword"] = keyword;              
+                        this.db.ref("userSetup").child(profile.userId).child("keyword").set(keyword);
                     }
-                    this.db.ref("userSetup").child(profile.userId).set(val);
                 });
             msg = "Oke pengaturan baru untuk ["+opt[0].trim()+"] menjadi ["+opt[1].trim()+"] telah diterima.";
 
@@ -180,7 +179,7 @@ class Messages{
                     .once("value",(snapshot)=>{
                         var placeQuery = {
                             location: [latitude, longitude],
-                            radius: snapshot.child("radius").val() || 1000,
+                            radius: snapshot.child("jarak").val() || 1000,
                             language: "id",
                             keyword: snapshot.child("keyword").val() || "tempat makan",
                             type: "restaurant"
