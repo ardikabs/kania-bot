@@ -29,7 +29,7 @@ class Advertisement{
 
     scheduleJob(){
         const rule1 = new schedule.RecurrenceRule();
-        rule1.minute=5;
+        rule1.minute=1;
 
         schedule.scheduleJob(rule1, ()=>{
             this.usersRef.off();
