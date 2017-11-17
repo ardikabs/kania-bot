@@ -115,13 +115,14 @@ class Messages{
             msg = imageCarousel.build(); 
         }
         else if(_userIn.includes('set-')){
-            let opt = _userIn.substring(4);
-
-            if(opt === "jarak:"){
-                console.log(opt.substring(6));
+            let opt = _userIn.substring(4).split(":");           
+            if(opt[0] === "jarak"){
+                let radius = opt[1].trim();
+                console.log(radius);
             }
-            else if(opt === "keyword:"){
-                console.log(opt.substring(8));
+            else if(opt[0] === "keyword"){
+                let keyword = opt[1].trim();
+                console.log(keyword);                
             }
         }
         else if(_userIn == "@coba"){
