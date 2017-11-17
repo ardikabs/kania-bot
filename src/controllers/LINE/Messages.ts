@@ -270,7 +270,7 @@ class Messages{
                                             msg = carouselMsg.build();
                                             this.event.reply(msg);     
                                         }
-                                        else if(carouselMsg.column.length < limit && i === resultLength-sumFail){
+                                        else if(carouselMsg.column.length === resultLength-sumFail){
                                             console.log("Tempat titik");                                           
                                             // Kondisi ketika tempat tersedia namun tidak semuanya memiliki informasi foto
                                             msg = carouselMsg.build();                            
