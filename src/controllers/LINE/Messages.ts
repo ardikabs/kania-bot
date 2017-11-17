@@ -60,13 +60,13 @@ class Messages{
             ];
         }
         else if(_userIn == "@help"){
-            msg= 'Saat ini Kania masih dalam tahap pengembangan, untuk perintah yang dapat digunakan adalah sebagai berikut:\n\1. @howto - Perintah untuk mengetahui cara berinteraksi dengan Kania\n2. @help - Perintah untuk mendapatkan informasi bantuan pada Kania \n3. @about - Perintah untuk mengetahui tentang Kania\n';
+            msg= "Saat ini Kania masih dalam tahap pengembangan, untuk perintah yang dapat digunakan adalah sebagai berikut:\n1. @howto - Perintah untuk mengetahui cara berinteraksi dengan Kania\n2. @help - Perintah untuk mendapatkan informasi bantuan pada Kania \n3. @about - Perintah untuk mengetahui tentang Kania\n";
         }
         else if(_userIn == "@about"){
-            msg = 'Kania merupakan Chatbot yang akan membantu kamu untuk mengetahui tempat makanan terdekat disekitarmu. Kania menggunakan bantuan Google untuk mencari informasi tersebut dan Kania dibangun menggunakan teknologi Javascript';        
+            msg = "Kania merupakan Chatbot yang akan membantu kamu untuk mengetahui tempat makanan terdekat disekitarmu. Kania menggunakan bantuan Google untuk mencari informasi tersebut dan Kania dibangun menggunakan teknologi Javascript";        
         }
         else if(_userIn == "@techdev"){
-            msg= 'Buat kalian yang ingi belajar bagaimana Kania bekerja untuk bisa mencari tempat makan di sekitar kamu, kamu bisa melakukan request source code Kania melalui kania@gravicodev.id';
+            msg= "Buat kalian yang ingi belajar bagaimana Kania bekerja untuk bisa mencari tempat makan di sekitar kamu, kamu bisa melakukan request source code Kania melalui kania@gravicodev.id";
         }
         else if(_userIn == "@voucher"){      
             let imageCarousel = new ImageCarouselTemplates("Voucher ini bisa buat makan kamu disekitarmu");
