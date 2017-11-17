@@ -130,13 +130,13 @@ class Messages{
                 .then((profile)=>{
                     let val:Object = {};
                     if(opt[0].trim() === "jarak"){
-                        let radius = opt[1].trim().split("km")[0].trim();
-                        radius = radius * 1000;
-                        if(radius<1000){
-                            this.event.reply("Maaf ya, jarak minimal yang Kania bisa tau adalah 1 kilometer. Coba ulangi lagi deh.");
+                        if(!opt[1].includes("km")){
+                            this.event.reply("Maaf yah, cuma satuan kilometer aja yang bisa Kania ketahui :(");
                         }
                         else{
-                            this.db.ref("userSetup").child(profile.userId).child("jarak").set(radius);                                                    
+                            let radius = opt[1].trim().split("km")[0].trim();
+                            radius = radius * 1000;
+                            this.db.ref("userSetup").child(profile.userId).child("jarak").set(radius);                                                        
                         }
                     }
                     else if(opt[0].trim() === "keyword"){
