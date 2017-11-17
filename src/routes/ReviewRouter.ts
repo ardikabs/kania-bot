@@ -13,6 +13,7 @@ class ReviewRouter{
 
     public getReviewPlace(req:Request,res:Response,next:NextFunction){
         let placeId = req.params.placeId;
+        let userId = req.query.userId;
         const bot = linebot({
             channelId: process.env.CHANNEL_ID,
             channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
@@ -21,7 +22,10 @@ class ReviewRouter{
         });
         
         console.log(placeId);
-        
+        console.log(userId);
+        let msg = "Review - "+placeId+"\n"+
+                  "Tempat makan ini cukup menarik, harga makanan tidak terlalu mahal, hanya saja tempat parkir yang kurang cukup luas. Secara overall sudah cukup baik, baik juga untuk dijadikan tempat tongkrongan";
+        bot.push(userId,msg);
     }
 
     public getNothing(req:Request,res:Response,next:NextFunction){
