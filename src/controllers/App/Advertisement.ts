@@ -13,6 +13,7 @@ class Advertisement{
     private headers: Object;
     private db: any;
     private client: RestClient;
+    private usersRef:any;
     constructor(private bot:linebot){
         this.headers={
             Accept:"application/json",
@@ -21,15 +22,26 @@ class Advertisement{
         this.client = new RestClient();
         
         this.db = admin.database();
+        this.usersRef = admin.database().ref("users");
         
         this.smsNotifWorker();
+    }
+
+    scheduleJob(){
+        const rule1 = new schedule.RecurrenceRule();
+        rule1.minute=5;
+
+        schedule.scheduleJob(rule1, ()=>{
+            this.usersRef.off();
+            this.smsNotifWorker();
+        })
     }
 
     smsNotifWorker(){
         let client = this.client;
 
         client.auth().then((access)=>{
-            this.db.ref("users").on("child_added",(snapshot)=>{
+            this.usersRef.on("child_added",(snapshot)=>{
                 let userId:String = snapshot.key;
                 let data:Object = snapshot.val();
                 let indosatValidNumber = ["62815","62816","62855","62856","62857"];
