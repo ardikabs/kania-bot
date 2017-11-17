@@ -8,7 +8,7 @@ import * as cors from 'cors';
 import * as path from 'path';
 import config from './config/main';
 import * as linebot from 'linebot';
-import * as http from "http";
+import * as https from "https";
 
 import Messages from './controllers/LINE/Messages';
 import Follow from './controllers/LINE/Follow';
@@ -99,7 +99,7 @@ class Server {
         bot.on('postback', (event)=>{ 
             let uri = event.postback.data;
             console.log(uri);
-            http.get("https://mykania.herokuapp.com"+uri);
+            https.get("https://mykania.herokuapp.com"+uri);
         });
     }
 
