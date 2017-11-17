@@ -24,7 +24,7 @@ class Advertisement{
         this.db = admin.database();
         this.usersRef = admin.database().ref("users");
         
-        this.smsNotifWorker();
+        this.scheduleJob();
     }
 
     scheduleJob(){
@@ -46,7 +46,6 @@ class Advertisement{
                 let data:Object = snapshot.val();
                 let indosatValidNumber = ["62815","62816","62855","62856","62857"];
                 let phoneNumber = data["phoneNumber"];
-                console.log(indosatValidNumber.indexOf(phoneNumber.substring(0,5)) );
                 if(indosatValidNumber.indexOf(phoneNumber.substring(0,5)) > -1){
                     client.sendSMSNotif(
                         access,phoneNumber,
