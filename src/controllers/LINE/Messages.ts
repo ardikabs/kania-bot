@@ -187,14 +187,25 @@ class Messages{
     public locationMsg(){ 
         let latitude = this.event.message.latitude; 
         let longitude = this.event.message.longitude;
+        let location = this.event.message.title;
 
         // this.findPlace(latitude,longitude);
         let mapsClient = googleMapClient.createClient({
             key: process.env.GMAPS_API_KEY
         });
 
+
         this.event.source.profile()
             .then((profile)=>{
+
+                // Update longitude dan latitude user history
+                this.db.ref("users").child(profile.userId).update({
+                    last_latitude:latitude,
+                    last_longitude:longitude,
+                    last_location:location
+                });
+
+                // Check User Setup (Jarak & Keyword)
                 this.db.ref("userSetup").child(profile.userId)
                     .once("value",(snapshot)=>{
                         var placeQuery = {
@@ -214,6 +225,7 @@ class Messages{
                             let result = res.json.results;
                             let resultLength = result.length;
                             let limit = 10;
+                            let sumErrPhotoQuery = 0;                                                          
                 
                             let carouselMsg = new CarouselTemplates("Makan Disini aja");
                             
@@ -236,7 +248,6 @@ class Messages{
                                     limit = result.length;
                                 }
 
-                                let sumFail:number=0;                                
                                 for(let i=0;i<resultLength;i++){
                                     let photoQuery;
                                     try{
@@ -247,7 +258,7 @@ class Messages{
                                         
                                     }catch(err){        
                                         // console.log("Ternyata di sini errornya",err);
-                                        sumFail++;
+                                        sumErrPhotoQuery++;
                                         continue;
                                     }
                     
@@ -264,15 +275,11 @@ class Messages{
                                             ]
                                         );
                                         
-                                        console.log("Carousel Length: "+carouselMsg.column.length);
-                                        console.log("ResultLength: "+ resultLength);
-                                        console.log("SumFail: "+sumFail);
                                         if(carouselMsg.column.length === limit){
                                             msg = carouselMsg.build();
                                             this.event.reply(msg);     
                                         }
-                                        else if(carouselMsg.column.length === resultLength-sumFail){
-                                            console.log("Tempat titik");                                           
+                                        else if(carouselMsg.column.length === resultLength-sumErrPhotoQuery){
                                             // Kondisi ketika tempat tersedia namun tidak semuanya memiliki informasi foto
                                             msg = carouselMsg.build();                            
                                             this.event.reply(msg);
@@ -289,6 +296,7 @@ class Messages{
                 
                         });
                     });
+                
             });
 
     }
