@@ -115,12 +115,12 @@ class Messages{
             msg = imageCarousel.build(); 
         }
         else if(_userIn.includes('set-')){
-            let opt = _userIn.substring(4).split(":").trim();           
-            if(opt[0] === "jarak"){
+            let opt = _userIn.substring(4).split(":");           
+            if(opt[0].trim() === "jarak"){
                 let radius = opt[1].trim().split("km")[0].trim();
                 console.log(radius);
             }
-            else if(opt[0] === "keyword"){
+            else if(opt[0].trim() === "keyword"){
                 let keyword = opt[1].trim();
                 console.log(keyword);                
             }
