@@ -288,7 +288,7 @@ class Messages{
                                             ]
                                         );
 
-                                        console.log(result[i].url);
+                                        console.log(JSON.stringify(result[i]));
                                         
                                         if(carouselMsg.column.length === limit){
                                             msg = carouselMsg.build();
