@@ -262,6 +262,8 @@ class Messages{
                                             ]
                                         );
                                         
+                                        console.log("Testing i:"+i);
+                                        console.log("Testing ResultLength:"+resultLength);
                                         if(carouselMsg.column.length === limit){
                                             msg = carouselMsg.build();
                                             this.event.reply(msg);     
