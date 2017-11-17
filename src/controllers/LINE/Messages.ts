@@ -284,9 +284,11 @@ class Messages{
                                             trimString60(result[i].vicinity),
                                             [
                                                 ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z"),
-                                                ActionBuilder.createUriAction("Review dari Google",result[i].url)
+                                                ActionBuilder.createUriAction("Review dari Google","https://www.google.com")
                                             ]
                                         );
+
+                                        console.log(result[i].url);
                                         
                                         if(carouselMsg.column.length === limit){
                                             msg = carouselMsg.build();
