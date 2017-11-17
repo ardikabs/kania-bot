@@ -1,4 +1,5 @@
 import admin from '../../config/admin';
+import Utils from "../App/Utils";
 
 class Follow{
 
@@ -31,7 +32,8 @@ class Follow{
                     `Terima kasih ${profile.displayName} telah menambahkan aku menjadi temanmu !`,
                     "Hai! Aku Kania, aku bisa membantu kamu untuk cari tempat kuliner yang disekitar mu!",
                     "Untuk cari makan, langsung aja kirim lokasi kamu sekarang.",
-                    "Kalau kamu bingung, kamu bisa gunakan perintah @help untuk mengetahui aku lebih dekat."
+                    Utils.showImagemap()
+                    
                 ] 
                 this.event.reply(greetingMsg)
                     .then((data)=>{

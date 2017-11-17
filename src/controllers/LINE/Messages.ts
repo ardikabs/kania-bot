@@ -10,9 +10,9 @@ import ConfirmTemplates from "../Templates/ConfirmTemplates";
 import CarouselTemplates from "../Templates/CarouselTemplates";
 import ImageCarouselTemplates from "../Templates/ImageCarouselTemplates";
 import ImagemapMessage from "../Templates/ImagemapMessage";
-
 import ActionBuilder from "../Templates/ActionBuilder";
 
+import Utils from "../App/Utils";
 import RestClient from "../Indosat/RestClient";
 
 class Messages{
@@ -67,7 +67,7 @@ class Messages{
         else if(_userIn == "@help"){
             msg= "Saat ini Kania masih dalam tahap pengembangan, untuk perintah yang dapat digunakan adalah sebagai berikut:\n"+
                 "1. @howto - Perintah untuk mengetahui cara berinteraksi dengan Kania\n"+
-                "2. @promo - Perintah untuk mengetahui promo kuliner yang ada sekitar kalian"+
+                "2. @promo - Perintah untuk mengetahui promo kuliner yang ada sekitar kalian\n"+
                 "3. @voucher - Perintah untuk mengetahui voucher kuliner yang sedang berlaku di sekitar kalian"+
                 "4. @help - Perintah untuk mendapatkan informasi bantuan pada Kania\n"+
                 "5. @about - Perintah untuk mengetahui tentang Kania\n";
@@ -138,19 +138,7 @@ class Messages{
         }
 
         else if(_userIn == "@menu"){
-            let imagemapMessage = new ImagemapMessage(
-                "Menunya Kania !!!",
-                "https://sibpens.gravicodev.id/kania/menu",
-                [
-                    ActionBuilder.createMessageActionForIM("@subscribe",0,0,346,260),
-                    ActionBuilder.createMessageActionForIM("@promo",346,0,348,260),
-                    ActionBuilder.createMessageActionForIM("@voucher",695,0,346,260),
-                    ActionBuilder.createMessageActionForIM("@premium",0,260,346,260),
-                    ActionBuilder.createMessageActionForIM("@help",346,260,348,260),
-                    ActionBuilder.createMessageActionForIM("@about",695,260,346,260)                    
-                ]
-            );
-            msg = imagemapMessage.build();
+            msg = Utils.showImagemap();
         }
 
         else if(_userIn == "@coba"){
