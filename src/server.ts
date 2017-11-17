@@ -17,6 +17,8 @@ import JoinGroup from './controllers/LINE/JoinGroup';
 
 import Advertisement from './controllers/App/Advertisement';
 
+import ReviewRouter from './routes/ReviewRouter';
+
 class Server {
 
     app:express.Application;
@@ -65,7 +67,7 @@ class Server {
         });
 
         this.app.use('/',router);
-        this.app.use('/reviews',router);
+        this.app.use('/reviews',ReviewRouter);
     }
 
     linehandler(){
@@ -97,7 +99,7 @@ class Server {
         bot.on('postback', (event)=>{ 
             let uri = event.postback.data;
             console.log(uri);
-            // http.get("https://mykania.herokuapp.com"+uri);
+            http.get("https://mykania.herokuapp.com"+uri);
         });
     }
 
