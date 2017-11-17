@@ -243,12 +243,12 @@ class Messages{
                                         );
                                         
                                         if(carouselMsg.column.length === limit){
-                                            console.log("data masuk"+limit);
+                                            console.log("data masuk === limit"+limit);
                                             msg = carouselMsg.build();
                                             this.event.reply(msg);     
                                         }
                                         else if(carouselMsg.column.length < limit && i === resultLength-1){
-                                            console.log("data masuk"+carouselMsg.column.length);
+                                            console.log("data masuk kurang dari limit"+carouselMsg.column.length);
                                             
                                             // Kondisi ketika tempat tersedia namun tidak semuanya memiliki informasi foto
                                             msg = carouselMsg.build();                            
