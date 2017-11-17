@@ -238,6 +238,7 @@ class Messages{
                 
                                 for(let i=0;i<resultLength;i++){
                                     let photoQuery;
+                                    let sumFail:number=0;
                                     try{
                                         photoQuery={ 
                                             maxwidth: 400,
@@ -245,6 +246,7 @@ class Messages{
                                         };
                                         
                                     }catch(err){
+                                        sumFail++;
                                         // console.log("Ternyata di sini errornya",err);
                                         continue;
                                     }
@@ -268,7 +270,7 @@ class Messages{
                                             msg = carouselMsg.build();
                                             this.event.reply(msg);     
                                         }
-                                        else if(carouselMsg.column.length < limit && i === resultLength){
+                                        else if(carouselMsg.column.length < limit && i === resultLength-sumFail){
                                             console.log("Tempat titik");                                           
                                             // Kondisi ketika tempat tersedia namun tidak semuanya memiliki informasi foto
                                             msg = carouselMsg.build();                            
