@@ -292,6 +292,7 @@ class Messages{
 
                                         if(carouselMsg.column.length === limit){
                                             msg = carouselMsg.build();
+                                            console.log(msg);
                                             this.event.reply(msg);     
                                         }
                                         else if(carouselMsg.column.length === resultLength-sumErrPhotoQuery){
