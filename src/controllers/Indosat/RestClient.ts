@@ -36,11 +36,11 @@ export default class RestClient {
             })
     }
 
-    sendSMSNotif(accessToken:String) {
+    sendSMSNotif(accessToken:String, msisdn:String, message:String) {
         this.headers["Authorization"] = "Bearer "+accessToken;
         let body = {
-            "msisdn":"6285655164677",
-            "message":"Testing"
+            "msisdn":msisdn,
+            "message":message
         };
         return this.post("/imx/sms",body)
                     .then((res) => {

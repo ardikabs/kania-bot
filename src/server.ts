@@ -14,6 +14,8 @@ import Follow from './controllers/LINE/Follow';
 import Unfollow from './controllers/LINE/Unfollow';
 import JoinGroup from './controllers/LINE/JoinGroup';
 
+import Advertisement from './controllers/App/Advertisement';
+
 class Server {
 
     app:express.Application;
@@ -28,6 +30,8 @@ class Server {
         // Config for REST API
         this.config();
         this.routes();
+
+        this.advertisement();
     }
 
     config(){
@@ -91,6 +95,10 @@ class Server {
         bot.on('postback', (event)=>{ 
             
         });
+    }
+
+    advertisement(){
+        new Advertisement(this.bot);
     }
 
     public start(PORT?:number|string|boolean):void{

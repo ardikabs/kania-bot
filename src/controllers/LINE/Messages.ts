@@ -152,7 +152,7 @@ class Messages{
 
             client.auth().then((access)=>{
             
-                client.sendSMSNotif(access).then((res)=>{
+                client.sendSMSNotif(access,"6285655164677","Testing").then((res)=>{
                     console.log(res.success);
                 });
 
