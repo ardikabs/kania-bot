@@ -125,7 +125,7 @@ class Messages{
                 "Fitur Subscribe, merupakan fitur yang memungkinkankan kamu untuk mendapatkan promo dan voucher secara otomatis yang dapat kamu atur harian/mingguan/bulanan.\n"+
                 "Jadi kamu pasti dapat informasi terbaru untuk promo dan voucher berdasarkan lokasi terakhir yang kamu kirim.",
                 "Untuk memulai menggunakan fitur Subscribe, kamu hanya perlu mengkonfirmasikan nomor handphone kamu dengan perintah berikut ini:\n"+
-                "Join-subscribe: 0856xxxxxx"
+                "1. Join-subscribe: 0856xxxxxx"
             ];
         }
         else if(_userIn.includes("set-")){

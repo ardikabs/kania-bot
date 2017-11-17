@@ -32,15 +32,17 @@ class Advertisement{
             this.db.ref("users").on("child_added",(snapshot)=>{
                 let userId:String = snapshot.key;
                 let data:Object = snapshot.val();
-
+                let indosatValidNumber = ["62815","62816","62855","62856","62857"];
                 let phoneNumber = data["phoneNumber"];
-                client.sendSMSNotif(
-                    access,phoneNumber,
-                    "Hai Pengguna Kania!\n"+
-                    "Saat ini Kania sedang menyediakan layanan Targeted Promote berbasis lokasi, bagi 100 pengguna pertama akan mendapatkan potongan 1/2 harga untuk 1 kali promote.\n"+
-                    "Segera chat aku untuk mengetahui lebih lanjut!\n\n"+
-                    "Kania: @kaniachatbot\nhttps://kania.gravicodev.id"
-                );
+                if(indosatValidNumber.indexOf(phoneNumber.substring(0,4)) > -1){
+                    client.sendSMSNotif(
+                        access,phoneNumber,
+                        "Hai Pengguna Kania!\n"+
+                        "Saat ini Kania sedang menyediakan layanan Targeted Promote berbasis lokasi, bagi 100 pengguna pertama akan mendapatkan potongan 1/2 harga untuk 1 kali promote.\n"+
+                        "Segera chat aku untuk mengetahui lebih lanjut!\n\n"+
+                        "Kania: @kaniachatbot\nhttps://kania.gravicodev.id"
+                    );
+                }
             });
 
         });
