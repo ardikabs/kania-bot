@@ -30,8 +30,8 @@ class Follow{
 
                 let greetingMsg = [
                     `Terima kasih ${profile.displayName} telah menambahkan aku menjadi temanmu !`,
-                    "Hai! Aku Kania, aku bisa membantu kamu untuk cari tempat kuliner yang disekitar mu!",
-                    "Untuk cari makan, langsung aja kirim lokasi kamu sekarang.",
+                    "Hai! Aku Kania, aku bisa membantu kamu untuk cari tempat kuliner yang ada disekitar kamu!",
+                    "Untuk cari tempat makannya, langsung aja kirim lokasi kamu sekarang.",
                     Utils.showImagemap()
                     
                 ] 
