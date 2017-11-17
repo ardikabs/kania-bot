@@ -235,20 +235,19 @@ class Messages{
                                 if(resultLength < limit){
                                     limit = result.length;
                                 }
-                
+
+                                let sumFail:number=0;                                
                                 for(let i=0;i<resultLength;i++){
                                     let photoQuery;
-                                    let sumFail:number=0;
                                     try{
                                         photoQuery={ 
                                             maxwidth: 400,
                                             photoreference: result[i].photos[0].photo_reference,          
                                         };
                                         
-                                    }catch(err){
-                                        
-                                        console.log("Ternyata di sini errornya",err);
-                                        sumFail+=1;
+                                    }catch(err){        
+                                        // console.log("Ternyata di sini errornya",err);
+                                        sumFail++;
                                         continue;
                                     }
                     
