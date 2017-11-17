@@ -154,7 +154,10 @@ class Messages{
                 let phoneNumber = "62"+numSplit.substring(1,numSplit.length);
                 this.event.source.profile().then((profile)=>{
                     this.db.ref("users").child(profile.userId).update({phoneNumber:phoneNumber});                    
+                    
+                    this.event.reply("Selamat, kamu telah berhasil bergabung dengan layanan Subscribe Kania. Nantikan informasi terbaru mengenai promo dan voucher disekitarmu!");
                 });
+
             }
         }
 
