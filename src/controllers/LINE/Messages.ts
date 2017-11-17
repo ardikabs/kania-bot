@@ -120,7 +120,7 @@ class Messages{
             let opt = _userIn.substring(4).split(":");      
             this.event.source.profile()
                 .then((profile)=>{
-                    let val:Object;
+                    let val:Object = {};
                     if(opt[0].trim() === "jarak"){
                         let radius = opt[1].trim().split("km")[0].trim();
                         radius = radius * 1000;
