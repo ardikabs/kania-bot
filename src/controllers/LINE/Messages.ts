@@ -187,7 +187,7 @@ class Messages{
     public locationMsg(){ 
         let latitude = this.event.message.latitude; 
         let longitude = this.event.message.longitude;
-        let location = this.event.message.title;
+        let location = this.event.message.address;
 
         // this.findPlace(latitude,longitude);
         let mapsClient = googleMapClient.createClient({
