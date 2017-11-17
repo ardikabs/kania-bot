@@ -172,183 +172,98 @@ class Messages{
         let mapsClient = googleMapClient.createClient({
             key: process.env.GMAPS_API_KEY
         });
-        var placeQuery = {
-            location: [latitude, longitude],
-            radius:1000,
-            language: "id",
-            keyword: "tempat makan",
-            type: "restaurant"
-          };
 
-        mapsClient.placesNearby(placeQuery, (err,res) =>{
-            if(err){
-                console.log("Error query tempat : ",err);                
-            }
-
-            let msg;
-            let result = res.json.results;
-            let resultLength = result.length;
-            let limit = 10;
-
-            let carouselMsg = new CarouselTemplates("Makan Disini aja");
-            
-            // Featured Product
-            // carouselMsg.addColumn(
-            //     "https://image.ibb.co/eX0PXb/Featured.png",
-            //     "[\u2605\u2605\u2605] Ayam Goreng Nelongso ",
-            //     "Jl. Nginden Semolo 43, Surabaya",
-            //     [
-            //         ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@-7.3001232,112.7660767,20z")
-            //     ]
-            // );
-
-            if(resultLength == 0){
-                msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
-                this.event.reply(msg);
-            }
-            else {
-                if(resultLength < limit){
-                    limit = result.length;
-                }
-
-                for(let i=0;i<resultLength;i++){
-                    let photoQuery;
-                    try{
-                        photoQuery={ 
-                            maxwidth: 400,
-                            photoreference: result[i].photos[0].photo_reference,          
-                        };
-                        
-                    }catch(err){
-                        // console.log("Ternyata di sini errornya",err);
-                        continue;
-                    }
-    
-                    mapsClient.placesPhoto(photoQuery, (err,res)=>{
-                        if(err)
-                            console.log("Error query place photo : ", err);
-                        
-                        carouselMsg.addColumn(
-                            "https://" + res.req.socket._host + "" + res.req.path,
-                            trimString40(result[i].name),
-                            trimString60(result[i].vicinity),
-                            [
-                                ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z")
-                            ]
-                        );
-                        
-                        if(carouselMsg.column.length === limit){
-                            msg = carouselMsg.build();
-                            this.event.reply(msg);     
-                        }
-                        else if(carouselMsg.column.length < limit){
-                            // Kondisi ketika tempat tersedia namun tidak semuanya memiliki informasi foto
-                            msg = carouselMsg.build();                            
-                            this.event.reply(msg);
-                        }
-                        else if(carouselMsg.column.length === 0 && i === (resultLength-1)){
-                            console.log("Ngga ketemu apa apa");                      
-                            msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
-                            this.event.reply(msg);
-                        }
-
-                    });
-                }    
-            }
-
-        });
-
-        // this.event.source.profile()
-        //     .then((profile)=>{
-        //         this.db.ref("userSetup").child(profile.userId)
-        //             .once("value",(snapshot)=>{
-        //                 var placeQuery = {
-        //                     location: [latitude, longitude],
-        //                     radius: snapshot.child("jarak").val() || 1000,
-        //                     language: "id",
-        //                     keyword: snapshot.child("keyword").val() || "tempat makan",
-        //                     type: "restaurant"
-        //                   };
+        this.event.source.profile()
+            .then((profile)=>{
+                this.db.ref("userSetup").child(profile.userId)
+                    .once("value",(snapshot)=>{
+                        var placeQuery = {
+                            location: [latitude, longitude],
+                            radius: 1000,
+                            language: "id",
+                            keyword: "tempat makan",
+                            type: "restaurant"
+                          };
                 
-        //                 mapsClient.placesNearby(placeQuery, (err,res) =>{
-        //                     if(err){
-        //                         console.log("Error query tempat : ",err);                
-        //                     }
+                        mapsClient.placesNearby(placeQuery, (err,res) =>{
+                            if(err){
+                                console.log("Error query tempat : ",err);                
+                            }
                 
-        //                     let msg;
-        //                     let result = res.json.results;
-        //                     let resultLength = result.length;
-        //                     let limit = 10;
+                            let msg;
+                            let result = res.json.results;
+                            let resultLength = result.length;
+                            let limit = 10;
                 
-        //                     let carouselMsg = new CarouselTemplates("Makan Disini aja");
+                            let carouselMsg = new CarouselTemplates("Makan Disini aja");
                             
-        //                     // Featured Product
-        //                     // carouselMsg.addColumn(
-        //                     //     "https://image.ibb.co/eX0PXb/Featured.png",
-        //                     //     "[\u2605\u2605\u2605] Ayam Goreng Nelongso ",
-        //                     //     "Jl. Nginden Semolo 43, Surabaya",
-        //                     //     [
-        //                     //         ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@-7.3001232,112.7660767,20z")
-        //                     //     ]
-        //                     // );
+                            // Featured Product
+                            // carouselMsg.addColumn(
+                            //     "https://image.ibb.co/eX0PXb/Featured.png",
+                            //     "[\u2605\u2605\u2605] Ayam Goreng Nelongso ",
+                            //     "Jl. Nginden Semolo 43, Surabaya",
+                            //     [
+                            //         ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@-7.3001232,112.7660767,20z")
+                            //     ]
+                            // );
                 
-        //                     if(resultLength == 0){
-        //                         msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
-        //                         this.event.reply(msg);
-        //                     }
-        //                     else {
-        //                         if(resultLength < limit){
-        //                             limit = result.length;
-        //                         }
+                            if(resultLength == 0){
+                                msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
+                                this.event.reply(msg);
+                            }
+                            else {
+                                if(resultLength < limit){
+                                    limit = result.length;
+                                }
                 
-        //                         for(let i=0;i<resultLength;i++){
-        //                             let photoQuery;
-        //                             try{
-        //                                 photoQuery={ 
-        //                                     maxwidth: 400,
-        //                                     photoreference: result[i].photos[0].photo_reference,          
-        //                                 };
+                                for(let i=0;i<resultLength;i++){
+                                    let photoQuery;
+                                    try{
+                                        photoQuery={ 
+                                            maxwidth: 400,
+                                            photoreference: result[i].photos[0].photo_reference,          
+                                        };
                                         
-        //                             }catch(err){
-        //                                 // console.log("Ternyata di sini errornya",err);
-        //                                 continue;
-        //                             }
+                                    }catch(err){
+                                        // console.log("Ternyata di sini errornya",err);
+                                        continue;
+                                    }
                     
-        //                             mapsClient.placesPhoto(photoQuery, (err,res)=>{
-        //                                 if(err)
-        //                                     console.log("Error query place photo : ", err);
+                                    mapsClient.placesPhoto(photoQuery, (err,res)=>{
+                                        if(err)
+                                            console.log("Error query place photo : ", err);
                                         
-        //                                 carouselMsg.addColumn(
-        //                                     "https://" + res.req.socket._host + "" + res.req.path,
-        //                                     trimString40(result[i].name),
-        //                                     trimString60(result[i].vicinity),
-        //                                     [
-        //                                         ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z")
-        //                                     ]
-        //                                 );
+                                        carouselMsg.addColumn(
+                                            "https://" + res.req.socket._host + "" + res.req.path,
+                                            trimString40(result[i].name),
+                                            trimString60(result[i].vicinity),
+                                            [
+                                                ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z")
+                                            ]
+                                        );
                                         
-        //                                 if(carouselMsg.column.length === limit){
-        //                                     msg = carouselMsg.build();
-        //                                     this.event.reply(msg);     
-        //                                 }
-        //                                 else if(carouselMsg.column.length < limit){
-        //                                     // Kondisi ketika tempat tersedia namun tidak semuanya memiliki informasi foto
-        //                                     msg = carouselMsg.build();                            
-        //                                     this.event.reply(msg);
-        //                                 }
-        //                                 else if(carouselMsg.column.length === 0 && i === (resultLength-1)){
-        //                                     console.log("Ngga ketemu apa apa");                      
-        //                                     msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
-        //                                     this.event.reply(msg);
-        //                                 }
+                                        if(carouselMsg.column.length === limit){
+                                            msg = carouselMsg.build();
+                                            this.event.reply(msg);     
+                                        }
+                                        else if(carouselMsg.column.length < limit){
+                                            // Kondisi ketika tempat tersedia namun tidak semuanya memiliki informasi foto
+                                            msg = carouselMsg.build();                            
+                                            this.event.reply(msg);
+                                        }
+                                        else if(carouselMsg.column.length === 0 && i === (resultLength-1)){
+                                            console.log("Ngga ketemu apa apa");                      
+                                            msg = 'Aku ngga bisa nemuin tempat makan dengan radius 1KM dari tempat kamu nih, coba jalan aja dulu';
+                                            this.event.reply(msg);
+                                        }
                 
-        //                             });
-        //                         }    
-        //                     }
+                                    });
+                                }    
+                            }
                 
-        //                 });
-        //             });
-        //     });
+                        });
+                    });
+            });
 
     }
 
