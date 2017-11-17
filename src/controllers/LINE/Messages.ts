@@ -53,14 +53,20 @@ class Messages{
         let _userIn = this.event.message.text.toLowerCase();
         
         if(_userIn == "@howto"){
-            // msg= "Kalau kamu mau cari tempat makan, langsung aja share location kamu ke aku";
             msg = [
                 "Untuk berinteraksi dengan Kania, kalian cukup membagi lokasi kamu ke Kania, dan Kania akan memberitahu tempat makan terdekatmu. Secara default, Kania mencari tempat makan yang berjarak 1KM dari sekitarmu.",
-                "Untuk menggunakan tambahan fitur pencarian tempat makan kalian dapat menggunakan perintah berikut ini:\n1. Set-jarak: 1km - Dengan ketentuan minimal jarak yang dapat dimasukkan adalah 1 kilo meter."
+                "Untuk menggunakan tambahan fitur pencarian tempat makan kalian dapat menggunakan perintah berikut ini:\n"+
+                "1. Set-jarak: 1km (Dengan ketentuan minimal jarak yang dapat dimasukkan adalah 1 kilo meter)"+
+                "2. Set-keyword: bakso (Dengan tanpa ketentuan. Secara default adalah rumah makan)"
             ];
         }
         else if(_userIn == "@help"){
-            msg= "Saat ini Kania masih dalam tahap pengembangan, untuk perintah yang dapat digunakan adalah sebagai berikut:\n1. @howto - Perintah untuk mengetahui cara berinteraksi dengan Kania\n2. @help - Perintah untuk mendapatkan informasi bantuan pada Kania \n3. @about - Perintah untuk mengetahui tentang Kania\n";
+            msg= "Saat ini Kania masih dalam tahap pengembangan, untuk perintah yang dapat digunakan adalah sebagai berikut:\n"+
+                "1. @howto - Perintah untuk mengetahui cara berinteraksi dengan Kania\n"+
+                "2. @promo - Perintah untuk mengetahui promo kuliner yang ada sekitar kalian"+
+                "3. @voucher - Perintah untuk mengetahui voucher kuliner yang sedang berlaku di sekitar kalian"+
+                "4. @help - Perintah untuk mendapatkan informasi bantuan pada Kania\n"+
+                "5. @about - Perintah untuk mengetahui tentang Kania\n";
         }
         else if(_userIn == "@about"){
             msg = "Kania merupakan Chatbot yang akan membantu kamu untuk mengetahui tempat makanan terdekat disekitarmu. Kania menggunakan bantuan Google untuk mencari informasi tersebut dan Kania dibangun menggunakan teknologi Javascript";        
@@ -88,6 +94,36 @@ class Messages{
             );
             msg = imageCarousel.build(); 
         }
+        else if(_userIn == "@promo"){      
+            let imageCarousel = new ImageCarouselTemplates("Voucher ini bisa buat makan kamu disekitarmu");
+            imageCarousel.addColumn(
+                "https://image.ibb.co/cVxXJG/Voucher_1.png",
+                ActionBuilder.createPostbackAction("Redeem","null")
+            );
+            imageCarousel.addColumn(
+                "https://image.ibb.co/jSPq5w/Voucher_2.png",
+                ActionBuilder.createPostbackAction("Redeem","null")                
+            );
+            imageCarousel.addColumn(
+                "https://image.ibb.co/m8UeyG/Voucher_3.png",
+                ActionBuilder.createPostbackAction("Redeem","null")
+            );
+            imageCarousel.addColumn(
+                "https://image.ibb.co/d3DuXb/voucher_4.png",
+                ActionBuilder.createPostbackAction("Redeem","null")
+            );
+            msg = imageCarousel.build(); 
+        }
+        else if(_userIn.includes('set-')){
+            let opt = _userIn.substring(4);
+
+            if(opt === "jarak:"){
+                console.log(opt.substring(6));
+            }
+            else if(opt === "keyword:"){
+                console.log(opt.substring(8));
+            }
+        }
         else if(_userIn == "@coba"){
             let client = new RestClient();
 
@@ -106,7 +142,7 @@ class Messages{
                 })
             });
         }
-        
+             
         else{msg = 'Aku masih belum diajarin ngomong itu sama developerku, kayanya sih dia masih sibuk, tapi kamu bisa coba chat "@help" buat command yang aku pahamin :D';}
         
         this.event.reply(msg)
