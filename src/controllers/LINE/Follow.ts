@@ -16,7 +16,7 @@ class Follow{
                     if(!snapshot.exists()){
                         let val = {
                             displayName: profile.displayName,
-                            timestamp: this.db.ServerValue.timestamp,
+                            timestamp: this.db.ServerValue.TIMESTAMP,
                             status: "follow",
                             status_premium: false,
                             phoneNumber:"-"
