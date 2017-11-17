@@ -60,7 +60,7 @@ class Messages{
             msg = [
                 "Untuk berinteraksi dengan Kania, kalian cukup membagi lokasi kamu ke Kania, dan Kania akan memberitahu tempat makan terdekatmu. Secara default, Kania mencari tempat makan yang berjarak 1KM dari sekitarmu.",
                 "Untuk menggunakan tambahan fitur pencarian tempat makan kalian dapat menggunakan perintah berikut ini:\n"+
-                "1. Set-jarak: 1km (Dengan ketentuan minimal jarak yang dapat dimasukkan adalah 1 kilo meter)"+
+                "1. Set-jarak: 1km (Dengan ketentuan minimal jarak yang dapat dimasukkan adalah 1 kilometer)"+
                 "2. Set-keyword: bakso (Dengan tanpa ketentuan. Secara default adalah rumah makan)"
             ];
         }
@@ -77,7 +77,7 @@ class Messages{
         else if(_userIn == "@about"){
             msg =[
                 "Kania merupakan Chatbot yang akan membantu kamu untuk mengetahui tempat makanan terdekat disekitarmu.\nKania menggunakan bantuan Google untuk mencari informasi tersebut dan Kania dibangun menggunakan teknologi Javascript",
-                "Status Kania Saat ini:\nVersion: 1.0\nTeknologi: Typescript (2.5.3) & NodeJS (6.11.2)",
+                "Status Kania Saat ini:\nVersion: 1.0\nTeknologi: Typescript (2.5.3) & NodeJS (6.11.2)\nDeveloper: ardikabs@gmail.com & dimas.rizky.hp@gmail.com",
                 Utils.showImagemap()
             ]         
         }
@@ -132,7 +132,12 @@ class Messages{
                     if(opt[0].trim() === "jarak"){
                         let radius = opt[1].trim().split("km")[0].trim();
                         radius = radius * 1000;
-                        this.db.ref("userSetup").child(profile.userId).child("jarak").set(radius);                        
+                        if(radius<1000){
+                            this.event.reply("Maaf ya, jarak minimal yang Kania bisa tau adalah 1 kilometer. Coba ulangi lagi deh.");
+                        }
+                        else{
+                            this.db.ref("userSetup").child(profile.userId).child("jarak").set(radius);                                                    
+                        }
                     }
                     else if(opt[0].trim() === "keyword"){
                         let keyword = opt[1].trim();
@@ -152,7 +157,12 @@ class Messages{
 
             client.auth().then((access)=>{
             
-                client.sendSMSNotif(access,"6285655164677","Testing").then((res)=>{
+                client.sendSMSNotif(access,"6285655164677",
+                    "Hai Pengguna Kania!\n"+
+                    "Saat ini Kania sedang menyediakan layanan Targeted Promote berbasis lokasi, bagi 100 pengguna pertama akan mendapatkan potongan 1/2 harga untuk 1 kali promote.\n"+
+                    "Segera chat aku untuk mengetahui lebih lanjut!\n\n"+
+                    "Kania: @kaniachatbot\nhttps://kania.gravicodev.id"
+                ).then((res)=>{
                     console.log(res.success);
                 });
 
