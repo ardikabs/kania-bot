@@ -283,7 +283,8 @@ class Messages{
                                             trimString40(result[i].name),
                                             trimString60(result[i].vicinity),
                                             [
-                                                ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z"),
+                                                // ActionBuilder.createUriAction("Liat Map","https://www.google.com/maps/@"+result[i].geometry.location.lat+","+result[i].geometry.location.lng+",20z"),
+                                                ActionBuilder.createUriAction("Liat Map","https://maps.google.com/maps?&z=20&q="+result[i].geometry.location.lat+"+"+result[i].geometry.location.lng),
                                                 ActionBuilder.createUriAction("Review dari Google","https://www.google.com")
                                             ]
                                         );
