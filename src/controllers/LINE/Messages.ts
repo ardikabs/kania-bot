@@ -142,12 +142,12 @@ class Messages{
                 "Menunya Kania !!!",
                 "https://sibpens.gravicodev.id/kania/menu",
                 [
-                    ActionBuilder.createMessageActionForIM("Subscribe",0,0,346,260),
-                    ActionBuilder.createMessageActionForIM("Promo",346,0,348,260),
-                    ActionBuilder.createMessageActionForIM("Voucher",695,0,346,260),
-                    ActionBuilder.createMessageActionForIM("Premium",0,260,346,260),
-                    ActionBuilder.createMessageActionForIM("Help",346,260,348,260),
-                    ActionBuilder.createMessageActionForIM("About",695,260,346,260)                    
+                    ActionBuilder.createMessageActionForIM("@subscribe",0,0,346,260),
+                    ActionBuilder.createMessageActionForIM("@promo",346,0,348,260),
+                    ActionBuilder.createMessageActionForIM("@voucher",695,0,346,260),
+                    ActionBuilder.createMessageActionForIM("@premium",0,260,346,260),
+                    ActionBuilder.createMessageActionForIM("@help",346,260,348,260),
+                    ActionBuilder.createMessageActionForIM("@about",695,260,346,260)                    
                 ]
             );
             msg = imagemapMessage.build();
@@ -246,8 +246,9 @@ class Messages{
                                         };
                                         
                                     }catch(err){
-                                        sumFail++;
-                                        // console.log("Ternyata di sini errornya",err);
+                                        
+                                        console.log("Ternyata di sini errornya",err);
+                                        sumFail+=1;
                                         continue;
                                     }
                     
@@ -265,8 +266,8 @@ class Messages{
                                         );
                                         
                                         console.log("Carousel Length: "+carouselMsg.column.length);
-                                        console.log("ResultLength"+ resultLength);
-                                        console.log("SumFail:"+sumFail);
+                                        console.log("ResultLength: "+ resultLength);
+                                        console.log("SumFail: "+sumFail);
                                         if(carouselMsg.column.length === limit){
                                             msg = carouselMsg.build();
                                             this.event.reply(msg);     
