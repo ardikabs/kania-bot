@@ -63,7 +63,7 @@ class Server {
         router = express.Router();
 
         router.get("/",(req,res,next)=>{
-            res.send('{Kania Chatbot - IWIC 2017}');
+            res.json({message:"Kania Chatbot - IWIC 2017"});
         });
 
         this.app.use('/',router);
